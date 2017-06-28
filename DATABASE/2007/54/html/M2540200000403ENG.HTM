@@ -1,0 +1,10 @@
+<html><head><SCRIPT LANGUAGE="JavaScript" SRC="../../../script/w000000000_m00.js"></SCRIPT><LINK rel="stylesheet" href="../../../css/03_m0000.css" type="text/css"></LINK><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SELF-DIAGNOSIS</title></head><body class="fontmain" onLoad="SetCharset()"><a name="M25402000004ENG0000010000"></a><h1><h1>SELF-DIAGNOSIS</h1><br /></h1><p align="right" STYLE="font-size:09pt; font-family:Arial;">M25402000004ENG0000010000</p><BR /><hr width="90%" /><b></b><br /><ul><li type="1">CAN self-diagnosis
+is performed by each ECU connected to the CAN bus.<br /></li><li type="1">Diagnostic trouble codes related to communication are named with the capital letter U,
+and are called "U-codes."<br /></li><li type="1">A summary of the CAN self-diagnosis system is presented below.<br /></li></ul><hr width="90%" /><a name=""></a><hr width="70%" /><h3>TIMEOUT</h3><br />Each ECU transmits data frames periodically. If the data frame is not received within
+the specified period, the intended receiving ECU transmits a diagnosis code indicating communication
+timeout for the ECU that failed to transmit.<br /><a name=""></a><hr width="70%" /><h3>BUS OFF</h3><br />Related to a communication error that persists even after the transmitting ECU attempts
+recovery for a specified number of attempts or that persists for a specified period after recovery.
+Communication is stopped and this diagnostic code is issued.<br /><a name=""></a><hr width="70%" /><h3>FAILURE DATA</h3><br />When the transmitting ECU detects failure of a sensor directly connected to it, this is
+the pertinent data used to inform the ECU.<br /><a name=""></a><hr width="70%" /><h3>DATA LENGTH ERROR</h3><br />When the number of data bytes received is different from the prescribed number of bytes,
+this diagnosis code is issued.<br /><a name=""></a><hr width="70%" /><h3>DYNAMIC RANGE ERROR</h3><br />When the data received is more or less than the prescribed range, this diagnosis code
+is issued.<br /></body></html>

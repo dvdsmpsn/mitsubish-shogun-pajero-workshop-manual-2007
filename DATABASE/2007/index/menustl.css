@@ -1,0 +1,9 @@
+body {
+  background-image:url("../gif/back.gif");
+  font-size:10pt
+}
+
+a:link { color:#000000 }
+a:visited { color:#000000 }
+a:active { color:#000000 }
+a:hover { color:#9900FF }
