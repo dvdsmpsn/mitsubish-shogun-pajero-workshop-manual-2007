@@ -10,4 +10,4 @@ The material is authored by Mitsubishi Motors - It does not violate any Copyrigh
 
 I do not claim any ownership other than for the work to make the material more accessible.
 
-**[Browse this manual]()**
+**[Browse this manual](https://rawgit.com/dvdsmpsn/mitsubish-shogun-pajero-workshop-manual-2007/master/index.html)**
