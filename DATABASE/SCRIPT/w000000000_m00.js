@@ -290,22 +290,26 @@ function SetInit(pFileName, pAppName, pKeyName, pDefvalue, pItemNo)
 //****************************************************************20050815/20051130
 function enlarge(image_f)
 {
-	CheckActiveX();
-	if( CheckActiveXFlg == "OK" ) {
-		SetMainFilePath();
-		if( MainFilePath == "" ) {
-			enlarge_pc(image_f);
-		}else{	
-			CheckAccess();
-			if( CheckAccessFlg == "OK" ) {
-				enlarge_mut3(image_f);
-			}else{
-				enlarge_pc_not_admin(image_f);
-			}
-		}
-	}else{
-			enlarge_pc_not_admin(image_f);
-	}
+	// @dvdsmpsn 
+	window.open(image_f);
+	
+	
+	// CheckActiveX();
+	// if( CheckActiveXFlg == "OK" ) {
+	// 	SetMainFilePath();
+	// 	if( MainFilePath == "" ) {
+	// 		enlarge_pc(image_f);
+	// 	}else{
+	// 		CheckAccess();
+	// 		if( CheckAccessFlg == "OK" ) {
+	// 			enlarge_mut3(image_f);
+	// 		}else{
+	// 			enlarge_pc_not_admin(image_f);
+	// 		}
+	// 	}
+	// }else{
+	// 		enlarge_pc_not_admin(image_f);
+	// }
 }
 
 //****************************************************************
