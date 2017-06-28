@@ -1,3 +1,16 @@
+table {
+	border-collapse: collapse;
+}
+th {
+	background: #fafafa;
+}
+th, td {
+	padding: 5px;
+}
+table, tr, td {
+	border-color: #ccc;
+}
+
 
 @media screen {
 	body     {
