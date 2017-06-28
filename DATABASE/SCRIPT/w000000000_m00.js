@@ -280,9 +280,9 @@ function SetInit(pFileName, pAppName, pKeyName, pDefvalue, pItemNo)
 	var retPara;
 	retPara = GetWinPara();
 //==>2002/08/06 m.n 故障診断用HTMLがインストールドライブと違う場所へ登録された場合の対応
-//	window.open("../../../../menu/html/mut_mode.htm","",retPara);
-//	window.open("../../../../../menu/html/mut_mode.htm","",retPara);//20020731 m.n ディレクトリを1階層up
-	window.open(MainFilePath + "/mut3/menu/html/mut_mode.htm","",retPara);
+//	window.open("../../../../menu/html/mut_mode.HTM","",retPara);
+//	window.open("../../../../../menu/html/mut_mode.HTM","",retPara);//20020731 m.n ディレクトリを1階層up
+	window.open(MainFilePath + "/mut3/menu/html/mut_mode.HTM","",retPara);
 //<==2002/08/06 m.n 
 	return;
 }
@@ -344,11 +344,11 @@ function enlarge_mut3(image_f)
 	// File Check for ImageHTML
 //	var fso = new ActiveXObject("Scripting.FileSystemObject");
 //	alert("check point through");
-//	if(fso.FileExists("ImgMain.htm")){
-//		fso.DeleteFile("ImgMain.htm",true);
+//	if(fso.FileExists("ImgMain.HTM")){
+//		fso.DeleteFile("ImgMain.HTM",true);
 //	}
 
-//	var imgf = fso.CreateTextFile(curfd + "ImgMain.htm");
+//	var imgf = fso.CreateTextFile(curfd + "ImgMain.HTM");
 	
 //	imgf.WriteLine("<HTML><BODY><P>");
 //	imgf.WriteLine("<IMG SRC = '" + image_f + "'><P>");
@@ -427,7 +427,7 @@ function enlarge_mut3(image_f)
 
 	var retPara;
 	retPara = GetWinPara();
-	ImgWnd = window.open(path+"\\Html\\03IMGPRN.htm","",retPara);
+	ImgWnd = window.open(path+"\\Html\\03IMGPRN.HTM","",retPara);
 //---------->2002/10/03 Make 03IMGPRN.htm file
 //---->2002/10/11 Make_ImgHtml4内で行うためコメントに
 //	Make_ImageFrame( ImgWnd, path+"\\Html\\", imgfl );
@@ -493,7 +493,7 @@ function enlarge_pc(image_f)
 
 	var retPara;
 	retPara = GetWinPara();
-	ImgWnd = window.open(path+"\\Html\\03IMGPRN.htm","",retPara);
+	ImgWnd = window.open(path+"\\Html\\03IMGPRN.HTM","",retPara);
 
 }
 
@@ -872,7 +872,7 @@ function JumpPage_mut3(file){
 //			self.location.href = htmpath + file;
 //<--20021009 RKK
 
-			var h_file ="S150000000_F00.htm";
+			var h_file ="S150000000_F00.HTM";
 			top.location.replace(MainFilePath + "\\mut3\\" + MENU_DIR + HTML_DIR + h_file );
 
 //==>20020910 RKK & MCOR
@@ -949,7 +949,7 @@ function JumpPage_mut3(file){
 		spath = spath + "\\" + grpdir + "\\html";
 //  分割ﾌｧｲﾙ名編集
 		ipos = file.lastIndexOf(".");
-		sptfile = file.substr(0,ipos) + "_01_00.htm";
+		sptfile = file.substr(0,ipos) + "_01_00.HTM";
 //  分割ﾌｧｲﾙ存在ﾁｪｯｸ
 		var ret;
 		var openmode;
@@ -1018,7 +1018,7 @@ function JumpPage2(file){
 //			self.location.href = htmpath + file;
 //<--20021009 RKK
 
-			var h_file ="S150000000_F00.htm";
+			var h_file ="S150000000_F00.HTM";
 			top.location.replace(MainFilePath + "\\mut3\\" + MENU_DIR + HTML_DIR + h_file );
 
 //==>20020910 RKK & MCOR
@@ -1095,7 +1095,7 @@ function JumpPage2(file){
 		spath = spath + "\\" + grpdir + "\\html";
 //  分割ﾌｧｲﾙ名編集
 		ipos = file.lastIndexOf(".");
-		sptfile = file.substr(0,ipos) + "_01_00.htm";
+		sptfile = file.substr(0,ipos) + "_01_00.HTM";
 //  分割ﾌｧｲﾙ存在ﾁｪｯｸ
 		var ret;
 		var openmode;
@@ -1246,10 +1246,10 @@ function DispButton(mode){
 
 	switch(mode){
 		case 1:
-			parent.button.location.href = "W000000000_B01.htm";
+			parent.button.location.href = "W000000000_B01.HTM";
 			break;
 		case 2:
-			parent.button.location.href = "W000000000_B02.htm";
+			parent.button.location.href = "W000000000_B02.HTM";
 			break;
 	}
 
