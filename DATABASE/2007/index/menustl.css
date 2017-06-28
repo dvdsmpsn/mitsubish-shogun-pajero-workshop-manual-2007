@@ -1,6 +1,7 @@
 body {
-  background-image:url("../gif/back.gif");
-  font-size:10pt
+  /* background-image:url("../gif/back.gif");*/
+  font-size:10pt,
+	font-family: arial, helvetica, sans-serif;
 }
 
 a:link { color:#000000 }

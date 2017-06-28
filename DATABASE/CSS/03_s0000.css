@@ -1,6 +1,12 @@
-<STYLE type="text/css">
-<!--
-BODY {background-color: #DCDCDC ; margin: 4px 4px}
-.message {color: #000000 ; font-size: 14pt ; font-family: Arial}
--->
-</STYLE>
+
+body {
+	background-color: #DCDCDC ; 
+	margin: 4px 4px;
+	font-family: arial, helvetica, sans-serif;
+}
+.message {
+	color: #000000; 
+	font-size: 14pt ; 
+	font-family: Arial;
+}
+
