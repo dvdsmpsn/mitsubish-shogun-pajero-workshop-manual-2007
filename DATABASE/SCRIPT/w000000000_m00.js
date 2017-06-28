@@ -823,20 +823,20 @@ function CloseWin(){
 function JumpPage(filename)
 {
 	// // @dvdsmpsn - didn't work - need to find the relavive path, which is somewhere else.
-	// filename = filename.replace('.HTM','.htm');
-	// console.log(' ++ ' + filename, window.location);
-	// window.location.href = filename;
+	filename = filename.replace('.HTM','.htm');
+	console.log(' ++ ' + filename, window.location);
+	window.location.href = filename;
 	
 	
 	
-var cstr
-	cstr = unescape(document.cookie);
-	if( cstr == "SMVCD=1" ) {
-		JumpPage_pc(file);
-	}
-	else{
-		JumpPage_mut3(file);
-	}
+// var cstr
+// 	cstr = unescape(document.cookie);
+// 	if( cstr == "SMVCD=1" ) {
+// 		JumpPage_pc(file);
+// 	}
+// 	else{
+// 		JumpPage_mut3(file);
+// 	}
 }
 
 //JumpPage
