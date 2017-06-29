@@ -1,10 +1,10 @@
 
 body {
 	background-color: #fff ;
-	margin: 20px 10px ;
+	margin: 50px 10px 0 10px;
 	font-size:10pt;
-	line-height:200%;
 	font-family: arial, helvetica, sans-serif;
+	line-height: 200%;
 }
 
 .title {color: #FFFF00 ; font-size: 30pt ; font-family: "Arial",sans-serif}
@@ -13,13 +13,16 @@ body {
 .button {background-color: #0000FF ; color: #FFFFFF ; font-size: 16pt; font-family: "Arial", "sans-serif"; width: 90%; height: 60%; clip:   rect(   )}
 
 
-TABLE{ line-height:160%}
 
 div{	width:95%;
 	line-height:100%
 }
 
-A:link {color:#000000}
-A:visited{color:#000000}
-A:active{color:#000000}
-A:hover{color:#EE0000}
+.menusub, a {
+	color: #337ab7;
+}
+
+a:link {}
+a:visited{color:#000000}
+a:active{color:#000000}
+a:hover{color:#EE0000}
