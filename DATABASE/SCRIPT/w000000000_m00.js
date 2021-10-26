@@ -4,9 +4,9 @@
 //										  20030206 Update MCOR
 //										  20030421 Update MCOR
 //										  20030526 Update MCOR
-//										  20030702 Update MCOR 20030422‚É‘Î‰‚µ‚½‚Í‚¸‚ÌƒR[ƒh‚ğ’Ç‰Á
-//										  20050823 Update RKK  CD’P‘Ì‚ÆMUT3‚Ì‹¤‘¶
-//										  20051130 Update RKK  CD’P‘ÌŠÈˆÕ•\¦‚Åg—pŒ ŒÀ‚È‚µƒ†[ƒU‚ÌƒCƒ‰ƒXƒgƒY|ƒ€‘Î‰
+//										  20030702 Update MCOR 20030422ï¿½É‘Î‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ÌƒRï¿½[ï¿½hï¿½ï¿½Ç‰ï¿½
+//										  20050823 Update RKK  CDï¿½Pï¿½Ì‚ï¿½MUT3ï¿½Ì‹ï¿½ï¿½ï¿½
+//										  20051130 Update RKK  CDï¿½Pï¿½ÌŠÈˆÕ•\ï¿½ï¿½ï¿½Ågï¿½pï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½[ï¿½Uï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½gï¿½Yï¿½|ï¿½ï¿½ï¿½Î‰ï¿½
 //****************************************************************
 var MainFilePath;
 var OBJ_RKKDLL;
@@ -18,707 +18,687 @@ var INI_ListName = "listname.ini";
 var CheckActiveXFlg;
 var CheckAccessFlg;
 
-
 //--------------------------------------------------------------->
 // Javascript functions for ITVFILE version 1.01
 var butTgt = new Array(2);
 butTgt[0] = "";
 butTgt[1] = "";
 //****************************************************************
-function ButInit (pPrev,pNext)
-{
+function ButInit(pPrev, pNext) {
   butTgt[0] = pPrev;
   butTgt[1] = pNext;
-//  var args = GetArgs ("but=");
-//  if (args != "")
-//  {
-//     var i = args.indexOf(",");
-//     if (i > 0)
-//     {
-//       butTgt[0] = args.substr(0,i);
-//       butTgt[1] = args.substr(i+1);
-//     }
-//  }
-  ButCheck (0);
-  ButCheck (1);
+  //  var args = GetArgs ("but=");
+  //  if (args != "")
+  //  {
+  //     var i = args.indexOf(",");
+  //     if (i > 0)
+  //     {
+  //       butTgt[0] = args.substr(0,i);
+  //       butTgt[1] = args.substr(i+1);
+  //     }
+  //  }
+  ButCheck(0);
+  ButCheck(1);
 }
 //****************************************************************
-function GetArgs (Key)
-{
+function GetArgs(Key) {
   var args = location.search;
   var ans = "";
-  if (args.substr(0,1) == "?")
-  {
+  if (args.substr(0, 1) == "?") {
     var i = args.indexOf(Key);
-    if (i > 0)
-    {
+    if (i > 0) {
       args = args.substr(i + Key.length);
       i = args.indexOf(";");
-      if (i > 0)
-      {
-        ans = args.substr(0,i);
+      if (i > 0) {
+        ans = args.substr(0, i);
       }
     }
   }
   return ans;
 }
 //****************************************************************
-function ButCheck (nBut)
-{
-  if ( (butTgt[nBut] == "") || (butTgt[nBut].charAt(0) == "@"))
-  {
+function ButCheck(nBut) {
+  if (butTgt[nBut] == "" || butTgt[nBut].charAt(0) == "@") {
     butTgt[nBut] = "";
     var pSrc = document.images["BUT" + nBut].src;
-    var i = pSrc.lastIndexOf (".");
-    pSrc = pSrc.substr(0,i) + "G" + pSrc.substr(i);
+    var i = pSrc.lastIndexOf(".");
+    pSrc = pSrc.substr(0, i) + "G" + pSrc.substr(i);
     document.images["BUT" + nBut].src = pSrc;
     document.images["BUT" + nBut].style.cursor = "default";
   }
   var i = butTgt[nBut].toUpperCase().indexOf(".HTM");
-  if (i > 0)
-  {
-    butTgt[nBut] = butTgt[nBut].substr(0,i);
+  if (i > 0) {
+    butTgt[nBut] = butTgt[nBut].substr(0, i);
   }
 }
 //****************************************************************
-function ButShow (nBut,bShow)
-{
-  if ((bShow == "1")&&(butTgt[nBut] != ""))
-  {
+function ButShow(nBut, bShow) {
+  if (bShow == "1" && butTgt[nBut] != "") {
     window.status = butTgt[nBut] + ".HTM";
-  }
-  else
-  {
+  } else {
     window.status = "";
   }
   return true;
 }
 
 //****************************************************************20050815
-function ButLink(nBut)
-{
-var cstr 
-	cstr = unescape(document.cookie);
-	if( cstr == "SMVCD=1" ) {
-		ButLink_pc(nBut);
-	}
-	else{
-		ButLink_mut3(nBut);
-	}
+function ButLink(nBut) {
+  var cstr;
+  cstr = unescape(document.cookie);
+  if (cstr == "SMVCD=1") {
+    ButLink_pc(nBut);
+  } else {
+    ButLink_mut3(nBut);
+  }
 }
 
 //****************************************************************
-function ButLink_mut3(nBut)
-{
-  if (butTgt[nBut] != "")
-  {
+function ButLink_mut3(nBut) {
+  if (butTgt[nBut] != "") {
     parent.location.href = butTgt[nBut] + ".HTM";
   }
   return false;
 }
 
 //****************************************************************20050815(ButLink func for pc)
-function ButLink_pc(nBut)
-{
-  if (butTgt[nBut] != "")
-  {
-//    parent.location.href = butTgt[nBut] + ".HTM";
-	JumpPage(butTgt[nBut] + ".HTM");
+function ButLink_pc(nBut) {
+  if (butTgt[nBut] != "") {
+    //    parent.location.href = butTgt[nBut] + ".HTM";
+    JumpPage(butTgt[nBut] + ".HTM");
   }
   return false;
 }
 
 //****************************************************************
-function scrlSet (xPos,yPos)
-{
+function scrlSet(xPos, yPos) {
   var pImg = document.images["I0"];
   var x0, y0, cx, cy;
   var args = location.search;
-  var args = GetArgs ("scroll=");
-  if (args != "")
-  {
-     var i = args.indexOf(",");
-     if (i > 0)
-     {
-       xPos = args.substr(0,i);
-       yPos = args.substr(i+1);
-     }
+  var args = GetArgs("scroll=");
+  if (args != "") {
+    var i = args.indexOf(",");
+    if (i > 0) {
+      xPos = args.substr(0, i);
+      yPos = args.substr(i + 1);
+    }
   }
-  if ( (xPos > 0) || (yPos > 0))
-  {
-     if (pImg.offsetLeft)
-     { // IE
-        x0 = pImg.offsetLeft;
-        y0 = pImg.offsetTop;
-        cx = document.body.offsetWidth;
-        cy = document.body.offsetHeight;
-     }
-     else
-     { // NN
-        x0 = pImg.x;
-        y0 = pImg.y;
-        cx = window.innerWidth;
-        cy = window.innerHeight;
-     }
-     xPos = x0 + Math.floor( (xPos*pImg.width/1000) - (cx/2) );
-     yPos = y0 + Math.floor( (yPos*pImg.height/1000) - (cy/2) );
-     window.scrollBy (xPos, yPos);
+  if (xPos > 0 || yPos > 0) {
+    if (pImg.offsetLeft) {
+      // IE
+      x0 = pImg.offsetLeft;
+      y0 = pImg.offsetTop;
+      cx = document.body.offsetWidth;
+      cy = document.body.offsetHeight;
+    } else {
+      // NN
+      x0 = pImg.x;
+      y0 = pImg.y;
+      cx = window.innerWidth;
+      cy = window.innerHeight;
+    }
+    xPos = x0 + Math.floor((xPos * pImg.width) / 1000 - cx / 2);
+    yPos = y0 + Math.floor((yPos * pImg.height) / 1000 - cy / 2);
+    window.scrollBy(xPos, yPos);
   }
 }
 //****************************************************************
-function LinkArgs(evt,elem,Mag,buts,top)
-{
+function LinkArgs(evt, elem, Mag, buts, top) {
   var pTgt;
-  if (evt.offsetX)
-  {  // IE
+  if (evt.offsetX) {
+    // IE
     pTgt = document.activeElement.href;
-  }
-  else
-  {  // NN
+  } else {
+    // NN
     pTgt = evt.target;
   }
   pTgt += "?";
-  if (Mag != 0)
-  {
+  if (Mag != 0) {
     Mag *= 10;
-    var pImg = document.images["I"+elem];
+    var pImg = document.images["I" + elem];
     var Cx = pImg.width;
     var Cy = pImg.height;
     var xPos, yPos, pTgt;
-    if (evt.offsetX)
-    {  // IE
+    if (evt.offsetX) {
+      // IE
       xPos = evt.offsetX;
       yPos = evt.offsetY;
-    }
-    else
-    {  // NN
+    } else {
+      // NN
       xPos = evt.pageX - pImg.x;
       yPos = evt.pageY - pImg.y;
     }
-    xPos = Math.floor (xPos * Mag / Cx);
-    yPos = Math.floor (yPos * Mag / Cy);
+    xPos = Math.floor((xPos * Mag) / Cx);
+    yPos = Math.floor((yPos * Mag) / Cy);
     pTgt += "scroll=" + xPos + "," + yPos + ";";
     // alert (pTgt);
   }
-  if (buts == "1")
-  {
-//    pTgt += "but=" + butTgt[0] + "," + butTgt[1] + ";";
-//  alert (pTgt);
+  if (buts == "1") {
+    //    pTgt += "but=" + butTgt[0] + "," + butTgt[1] + ";";
+    //  alert (pTgt);
   }
   window.status = pTgt;
-  if (top != "0")
-  {
+  if (top != "0") {
     parent.location.href = pTgt;
-  }
-  else
-  {
+  } else {
     location.href = pTgt;
   }
   return false;
 }
 //****************************************************************
-function scrlTgt(evt,elem,Mag)
-{
+function scrlTgt(evt, elem, Mag) {
   Mag *= 10;
-  var pImg = document.images["I"+elem];
+  var pImg = document.images["I" + elem];
   var Cx = pImg.width;
   var Cy = pImg.height;
   var xPos, yPos, pTgt;
-  if (evt.offsetX)
-  {  // IE
-     xPos = evt.offsetX;
-     yPos = evt.offsetY;
-     pTgt = document.activeElement.href;
+  if (evt.offsetX) {
+    // IE
+    xPos = evt.offsetX;
+    yPos = evt.offsetY;
+    pTgt = document.activeElement.href;
+  } else {
+    // NN
+    xPos = evt.pageX - pImg.x;
+    yPos = evt.pageY - pImg.y;
+    pTgt = evt.target;
   }
-  else
-  {  // NN
-     xPos = evt.pageX - pImg.x;
-     yPos = evt.pageY - pImg.y;
-     pTgt = evt.target;
-  }
-  xPos = Math.floor (xPos * Mag / Cx);
-  yPos = Math.floor (yPos * Mag / Cy);
+  xPos = Math.floor((xPos * Mag) / Cx);
+  yPos = Math.floor((yPos * Mag) / Cy);
   pTgt = pTgt + "?scroll=" + xPos + "," + yPos + ";";
-// alert (pTgt);
+  // alert (pTgt);
   window.status = pTgt;
   location.href = pTgt;
   return false;
 }
 //****************************************************************
-function cWidth (cols)
-{
-  var cx=800;
-  if (window.innerWidth)
-  {
-     cx=window.innerWidth;
+function cWidth(cols) {
+  var cx = 800;
+  if (window.innerWidth) {
+    cx = window.innerWidth;
+  } else if (document.body.offsetWidth) {
+    cx = document.body.offsetWidth;
   }
-  else if (document.body.offsetWidth)
-  {
-    cx=document.body.offsetWidth;
-  }
-  return Math.floor(cx*cols/1000);
+  return Math.floor((cx * cols) / 1000);
 }
 //****************************************************************
 // Javascript functions for ITVFILE version 1.01
 //<---------------------------------------------------------------
 //-->2002/09/13
 //function SetInit(pFileName, pAppName, pKeyName, pDefvalue)
-function SetInit(pFileName, pAppName, pKeyName, pDefvalue, pItemNo)
-//<--2002/09/13
-{
-	var ret;
-	var obj_getInfo = new ActiveXObject("m03.m03");
-//-->2002/09/13 MainFilePath‚ªÌŞ×İ¸‚¾‚Á‚½‚çÊß½–¼æ“¾ˆ—
-	if( MainFilePath == "" ) {
-		SetMainFilePath();
-	}
-//<--2002/09/13
-	ret = obj_getInfo.Set_Information(MainFilePath + "\\mut3\\temp\\Vehicle.dat",pAppName,pKeyName, pDefvalue);
-//-->2002/09/13 Item”Ô†¾¯Äˆ—’Ç‰Á
-	ret = obj_getInfo.Set_Information(MainFilePath + "\\mut3\\temp\\Vehicle.dat",pAppName,"ITEMNO", pItemNo);
-//<--2002/09/13
-	var retPara;
-	retPara = GetWinPara();
-//==>2002/08/06 m.n ŒÌáf’f—pHTML‚ªƒCƒ“ƒXƒg[ƒ‹ƒhƒ‰ƒCƒu‚Æˆá‚¤êŠ‚Ö“o˜^‚³‚ê‚½ê‡‚Ì‘Î‰
-//	window.open("../../../../menu/html/mut_mode.HTM","",retPara);
-//	window.open("../../../../../menu/html/mut_mode.HTM","",retPara);//20020731 m.n ƒfƒBƒŒƒNƒgƒŠ‚ğ1ŠK‘wup
-	window.open(MainFilePath + "/mut3/menu/html/mut_mode.HTM","",retPara);
-//<==2002/08/06 m.n 
-	return;
+function SetInit(pFileName, pAppName, pKeyName, pDefvalue, pItemNo) {
+  //<--2002/09/13
+  var ret;
+  var obj_getInfo = new ActiveXObject("m03.m03");
+  //-->2002/09/13 MainFilePathï¿½ï¿½ï¿½ï¿½ï¿½İ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+  if (MainFilePath == "") {
+    SetMainFilePath();
+  }
+  //<--2002/09/13
+  ret = obj_getInfo.Set_Information(
+    MainFilePath + "\\mut3\\temp\\Vehicle.dat",
+    pAppName,
+    pKeyName,
+    pDefvalue
+  );
+  //-->2002/09/13 Itemï¿½Ôï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
+  ret = obj_getInfo.Set_Information(
+    MainFilePath + "\\mut3\\temp\\Vehicle.dat",
+    pAppName,
+    "ITEMNO",
+    pItemNo
+  );
+  //<--2002/09/13
+  var retPara;
+  retPara = GetWinPara();
+  //==>2002/08/06 m.n ï¿½Ìï¿½fï¿½fï¿½pHTMLï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½gï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Cï¿½uï¿½Æˆá‚¤ï¿½êŠï¿½Ö“oï¿½^ï¿½ï¿½ï¿½ê‚½ï¿½ê‡ï¿½Ì‘Î‰ï¿½
+  //	window.open("../../../../menu/html/mut_mode.HTM","",retPara);
+  //	window.open("../../../../../menu/html/mut_mode.HTM","",retPara);//20020731 m.n ï¿½fï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½1ï¿½Kï¿½wup
+  window.open(MainFilePath + "/mut3/menu/html/mut_mode.HTM", "", retPara);
+  //<==2002/08/06 m.n
+  return;
 }
 
 //****************************************************************20050815/20051130
-function enlarge(image_f)
-{
-	// @dvdsmpsn 
-	window.open(image_f);
-	
-	
-	// CheckActiveX();
-	// if( CheckActiveXFlg == "OK" ) {
-	// 	SetMainFilePath();
-	// 	if( MainFilePath == "" ) {
-	// 		enlarge_pc(image_f);
-	// 	}else{
-	// 		CheckAccess();
-	// 		if( CheckAccessFlg == "OK" ) {
-	// 			enlarge_mut3(image_f);
-	// 		}else{
-	// 			enlarge_pc_not_admin(image_f);
-	// 		}
-	// 	}
-	// }else{
-	// 		enlarge_pc_not_admin(image_f);
-	// }
+function enlarge(image_f) {
+  // @dvdsmpsn
+  window.open(image_f);
+
+  // CheckActiveX();
+  // if( CheckActiveXFlg == "OK" ) {
+  // 	SetMainFilePath();
+  // 	if( MainFilePath == "" ) {
+  // 		enlarge_pc(image_f);
+  // 	}else{
+  // 		CheckAccess();
+  // 		if( CheckAccessFlg == "OK" ) {
+  // 			enlarge_mut3(image_f);
+  // 		}else{
+  // 			enlarge_pc_not_admin(image_f);
+  // 		}
+  // 	}
+  // }else{
+  // 		enlarge_pc_not_admin(image_f);
+  // }
 }
 
 //****************************************************************
-function enlarge_mut3(image_f)
-{
-//==–{Ì§İ¸¼®İ‚É@INIÌ§²Ù‚ÌÃŞ°Àæ“¾‹y‚Ñ@ÌßØİÄ½²¯Á‚Ì”»’è‚ğ’Ç‰Á‚µ‚Ü‚µ‚½@@BY Œüˆä//==ˆÈ‰º@2s‚ª‚»‚¤‚Å‚·
-//
-//-->2002/09/13 MainFilePath‚ªÌŞ×İ¸‚¾‚Á‚½‚çÊß½–¼æ“¾ˆ—
-	if( MainFilePath == "" ) {
-		SetMainFilePath();
-	}
-//<--2002/09/13
-//-->2003/11/18 MainFilePath‚ªƒuƒ‰ƒ“ƒN‚¾‚Á‚½‚çƒXƒNƒŠƒvƒgI—¹
-	if( MainFilePath == "" ) {
-		return;
-	}
-//<--2003/11/18
+function enlarge_mut3(image_f) {
+  //==ï¿½{Ì§İ¸ï¿½ï¿½İ‚É@INIÌ§ï¿½Ù‚ï¿½ï¿½Ş°ï¿½ï¿½æ“¾ï¿½yï¿½Ñ@ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ì”ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½@ï¿½@BY ï¿½ï¿½ï¿½ï¿½//==ï¿½È‰ï¿½ï¿½@2ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½
+  //
+  //-->2002/09/13 MainFilePathï¿½ï¿½ï¿½ï¿½ï¿½İ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+  if (MainFilePath == "") {
+    SetMainFilePath();
+  }
+  //<--2002/09/13
+  //-->2003/11/18 MainFilePathï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½Iï¿½ï¿½
+  if (MainFilePath == "") {
+    return;
+  }
+  //<--2003/11/18
 
-     var P_SW = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI", "ENV", "PRT_SW", "");
+  var P_SW = OBJ_RKKDLL.Get_Information(
+    MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+    "ENV",
+    "PRT_SW",
+    ""
+  );
 
-	if(P_SW == "1"){
-		return;
-	}
+  if (P_SW == "1") {
+    return;
+  }
 
-	// Get File Path
-//==>2001/09/07 update m.n
-//	var curpath = parent.main.location.pathname;
-	var curpath = self.location.pathname;
-//<==2001/09/07 update m.n
-	var iPos = curpath.lastIndexOf("\\");
-	var curfd = curpath.substr(1,iPos);	
-	// File Check for ImageHTML
-//	var fso = new ActiveXObject("Scripting.FileSystemObject");
-//	alert("check point through");
-//	if(fso.FileExists("ImgMain.HTM")){
-//		fso.DeleteFile("ImgMain.HTM",true);
-//	}
+  // Get File Path
+  //==>2001/09/07 update m.n
+  //	var curpath = parent.main.location.pathname;
+  var curpath = self.location.pathname;
+  //<==2001/09/07 update m.n
+  var iPos = curpath.lastIndexOf("\\");
+  var curfd = curpath.substr(1, iPos);
+  // File Check for ImageHTML
+  //	var fso = new ActiveXObject("Scripting.FileSystemObject");
+  //	alert("check point through");
+  //	if(fso.FileExists("ImgMain.HTM")){
+  //		fso.DeleteFile("ImgMain.HTM",true);
+  //	}
 
-//	var imgf = fso.CreateTextFile(curfd + "ImgMain.HTM");
-	
-//	imgf.WriteLine("<HTML><BODY><P>");
-//	imgf.WriteLine("<IMG SRC = '" + image_f + "'><P>");
-//	imgf.WriteLine("</BODY></HTML>");
-//	imgf.Close();
+  //	var imgf = fso.CreateTextFile(curfd + "ImgMain.HTM");
 
-//	alert(curfd);
-//********** ‰æ–Ê»²½Ş‚ğ100‚Æ‚µ‚Ä•\¦‚·‚é•û–@ ***********
-//	Zoom = 25;
-//	OBJ_RKKDLL.Make_ImgHtm(curfd,image_f,Zoom);
-//******************************************************
-//********** ‰æ‘œ»²½Ş‚ğ100‚Æ‚µ‚Ä•\¦‚·‚é•û–@ ***********
-	iPos = image_f.lastIndexOf("/",image_f.length-2);
-	var imgfl1 = image_f.substr(iPos+1,image_f.length - iPos);
-	var imgfl2;
+  //	imgf.WriteLine("<HTML><BODY><P>");
+  //	imgf.WriteLine("<IMG SRC = '" + image_f + "'><P>");
+  //	imgf.WriteLine("</BODY></HTML>");
+  //	imgf.Close();
 
-	var imgh = 0;
-	var imgw = 0;
-//==>2001/09/07 update m.n
-//	for(i=0;i<parent.main.document.images.length;i++){
-//		imgfl = parent.main.document.images[i].src;
-	for(i=0;i<self.document.images.length;i++){
-		imgfl = self.document.images[i].src;
-//<==2001/09/07 update m.n
-		iPos = imgfl.lastIndexOf("/",imgfl.length-2);
-		imgfl2 = imgfl.substr(iPos+1,imgfl.length-iPos);
-		if(imgfl1==imgfl2){
-//==>2001/09/07 update m.n
-//			ImgHeight = parent.main.document.images[i].height;
-//			ImgWidth = parent.main.document.images[i].width;
-			ImgHeight = self.document.images[i].height;
-			ImgWidth = self.document.images[i].width;
-//<==2001/09/07 update m.n
-//			alert("ImgWidth >> " + ImgWidth);
-//			alert("ImgHeight >> " + ImgHeight);
-			break;
-		}
-	}
-//	alert(curfd);
-	// Get MUT3 Path(from Registry)
-//----->2002/10/07
-//	pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
-//	pKey2 = "path";
-//
-//	OBJ_RKKDLL = new ActiveXObject("m03.m03");
-//	ret = OBJ_RKKDLL.Get_Registry(pKey1,pKey2);
-//	if(ret == ""){
-//		return;
-//	}
-//	MainFilePath = ret;
-//	if( MainFilePath == "" ) {
-//		SetMainFilePath();
-//	}
-//	if( MainFilePath == "" ) {
-//		return;
-//	}
-//<-----2002/10/07
+  //	alert(curfd);
+  //********** ï¿½ï¿½Ê»ï¿½ï¿½Ş‚ï¿½100ï¿½Æ‚ï¿½ï¿½Ä•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ ***********
+  //	Zoom = 25;
+  //	OBJ_RKKDLL.Make_ImgHtm(curfd,image_f,Zoom);
+  //******************************************************
+  //********** ï¿½æ‘œï¿½ï¿½ï¿½Ş‚ï¿½100ï¿½Æ‚ï¿½ï¿½Ä•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ ***********
+  iPos = image_f.lastIndexOf("/", image_f.length - 2);
+  var imgfl1 = image_f.substr(iPos + 1, image_f.length - iPos);
+  var imgfl2;
 
-	path = MainFilePath + "\\mut3\\menu";
+  var imgh = 0;
+  var imgw = 0;
+  //==>2001/09/07 update m.n
+  //	for(i=0;i<parent.main.document.images.length;i++){
+  //		imgfl = parent.main.document.images[i].src;
+  for (i = 0; i < self.document.images.length; i++) {
+    imgfl = self.document.images[i].src;
+    //<==2001/09/07 update m.n
+    iPos = imgfl.lastIndexOf("/", imgfl.length - 2);
+    imgfl2 = imgfl.substr(iPos + 1, imgfl.length - iPos);
+    if (imgfl1 == imgfl2) {
+      //==>2001/09/07 update m.n
+      //			ImgHeight = parent.main.document.images[i].height;
+      //			ImgWidth = parent.main.document.images[i].width;
+      ImgHeight = self.document.images[i].height;
+      ImgWidth = self.document.images[i].width;
+      //<==2001/09/07 update m.n
+      //			alert("ImgWidth >> " + ImgWidth);
+      //			alert("ImgHeight >> " + ImgHeight);
+      break;
+    }
+  }
+  //	alert(curfd);
+  // Get MUT3 Path(from Registry)
+  //----->2002/10/07
+  //	pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
+  //	pKey2 = "path";
+  //
+  //	OBJ_RKKDLL = new ActiveXObject("m03.m03");
+  //	ret = OBJ_RKKDLL.Get_Registry(pKey1,pKey2);
+  //	if(ret == ""){
+  //		return;
+  //	}
+  //	MainFilePath = ret;
+  //	if( MainFilePath == "" ) {
+  //		SetMainFilePath();
+  //	}
+  //	if( MainFilePath == "" ) {
+  //		return;
+  //	}
+  //<-----2002/10/07
 
-	imgh = 0;
-	imgw = 0;
+  path = MainFilePath + "\\mut3\\menu";
 
-	var imgfp;
-//	imgfp = OBJ_RKKDLL.Make_ImgHtm3(curfd,imgfl,imgw,imgh);
-//	imgfp = OBJ_RKKDLL.Make_ImgHtm4(curfd,imgfl,imgw,imgh,"");
+  imgh = 0;
+  imgw = 0;
 
-	// *** Start ****** 2003/10/31
-	// PDF/SVG Demo Version
-	var imgflfull = imgfl.replace(imgfl2, imgfl1);
-	imgflfull = imgflfull.replace("%20", " ");
-	imgfp = OBJ_RKKDLL.Make_ImgHtm4(curfd, imgflfull, imgw, imgh, path);
-	// *** End ******
+  var imgfp;
+  //	imgfp = OBJ_RKKDLL.Make_ImgHtm3(curfd,imgfl,imgw,imgh);
+  //	imgfp = OBJ_RKKDLL.Make_ImgHtm4(curfd,imgfl,imgw,imgh,"");
 
-//******************************************************
+  // *** Start ****** 2003/10/31
+  // PDF/SVG Demo Version
+  var imgflfull = imgfl.replace(imgfl2, imgfl1);
+  imgflfull = imgflfull.replace("%20", " ");
+  imgfp = OBJ_RKKDLL.Make_ImgHtm4(curfd, imgflfull, imgw, imgh, path);
+  // *** End ******
 
-	var retPara;
-	retPara = GetWinPara();
-	ImgWnd = window.open(path+"\\Html\\03IMGPRN.HTM","",retPara);
-//---------->2002/10/03 Make 03IMGPRN.htm file
-//---->2002/10/11 Make_ImgHtml4“à‚Ås‚¤‚½‚ßƒRƒƒ“ƒg‚É
-//	Make_ImageFrame( ImgWnd, path+"\\Html\\", imgfl );
-//<----2002/10/11
-//<----------2002/10/03
+  //******************************************************
 
+  var retPara;
+  retPara = GetWinPara();
+  ImgWnd = window.open(path + "\\Html\\03IMGPRN.HTM", "", retPara);
+  //---------->2002/10/03 Make 03IMGPRN.htm file
+  //---->2002/10/11 Make_ImgHtml4ï¿½ï¿½ï¿½Åsï¿½ï¿½ï¿½ï¿½ï¿½ßƒRï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½
+  //	Make_ImageFrame( ImgWnd, path+"\\Html\\", imgfl );
+  //<----2002/10/11
+  //<----------2002/10/03
 }
 
-//****************************************************************20050823(enlarge func for pc) 
-function enlarge_pc(image_f)
-{
-	var path = "";
-//==>2001/09/07 update m.n
-	var curpath = self.location.pathname;
-//<==2001/09/07 update m.n
-	var iPos = curpath.lastIndexOf("\\");
-	var curfd = curpath.substr(1,iPos);	
+//****************************************************************20050823(enlarge func for pc)
+function enlarge_pc(image_f) {
+  var path = "";
+  //==>2001/09/07 update m.n
+  var curpath = self.location.pathname;
+  //<==2001/09/07 update m.n
+  var iPos = curpath.lastIndexOf("\\");
+  var curfd = curpath.substr(1, iPos);
 
-//********** ‰æ‘œ»²½Ş‚ğ100‚Æ‚µ‚Ä•\¦‚·‚é•û–@ ***********
-	iPos = image_f.lastIndexOf("/",image_f.length-2);
-	var imgfl1 = image_f.substr(iPos+1,image_f.length - iPos);
-	var imgfl2;
+  //********** ï¿½æ‘œï¿½ï¿½ï¿½Ş‚ï¿½100ï¿½Æ‚ï¿½ï¿½Ä•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ ***********
+  iPos = image_f.lastIndexOf("/", image_f.length - 2);
+  var imgfl1 = image_f.substr(iPos + 1, image_f.length - iPos);
+  var imgfl2;
 
-	var imgh = 0;
-	var imgw = 0;
-//==>2001/09/07 update m.n
-	for(i=0;i<self.document.images.length;i++){
-		imgfl = self.document.images[i].src;
-//<==2001/09/07 update m.n
-		iPos = imgfl.lastIndexOf("/",imgfl.length-2);
-		imgfl2 = imgfl.substr(iPos+1,imgfl.length-iPos);
-		if(imgfl1==imgfl2){
-//==>2001/09/07 update m.n
-			ImgHeight = self.document.images[i].height;
-			ImgWidth = self.document.images[i].width;
-//<==2001/09/07 update m.n
-			break;
-		}
-	}
-//<-----2002/10/07
+  var imgh = 0;
+  var imgw = 0;
+  //==>2001/09/07 update m.n
+  for (i = 0; i < self.document.images.length; i++) {
+    imgfl = self.document.images[i].src;
+    //<==2001/09/07 update m.n
+    iPos = imgfl.lastIndexOf("/", imgfl.length - 2);
+    imgfl2 = imgfl.substr(iPos + 1, imgfl.length - iPos);
+    if (imgfl1 == imgfl2) {
+      //==>2001/09/07 update m.n
+      ImgHeight = self.document.images[i].height;
+      ImgWidth = self.document.images[i].width;
+      //<==2001/09/07 update m.n
+      break;
+    }
+  }
+  //<-----2002/10/07
 
-	path = GetTempFile();
-	if ( path == "" ){
-		return;
-	}else{
-	path = path + "\\mut3";
-	}
+  path = GetTempFile();
+  if (path == "") {
+    return;
+  } else {
+    path = path + "\\mut3";
+  }
 
-	imgh = 0;
-	imgw = 0;
+  imgh = 0;
+  imgw = 0;
 
-	var imgfp;
+  var imgfp;
 
-	// *** Start ****** 2003/10/31
-	// PDF/SVG Demo Version
-	var imgflfull = imgfl.replace(imgfl2, imgfl1);
-	imgflfull = imgflfull.replace("%20", " ");
-	OBJ_RKKDLL = new ActiveXObject("m03.m03");
-	imgfp = OBJ_RKKDLL.Make_ImgHtm4(curfd, imgflfull, imgw, imgh, path);
-	// *** End ******
+  // *** Start ****** 2003/10/31
+  // PDF/SVG Demo Version
+  var imgflfull = imgfl.replace(imgfl2, imgfl1);
+  imgflfull = imgflfull.replace("%20", " ");
+  OBJ_RKKDLL = new ActiveXObject("m03.m03");
+  imgfp = OBJ_RKKDLL.Make_ImgHtm4(curfd, imgflfull, imgw, imgh, path);
+  // *** End ******
 
-//******************************************************
+  //******************************************************
 
-	var retPara;
-	retPara = GetWinPara();
-	ImgWnd = window.open(path+"\\Html\\03IMGPRN.HTM","",retPara);
-
+  var retPara;
+  retPara = GetWinPara();
+  ImgWnd = window.open(path + "\\Html\\03IMGPRN.HTM", "", retPara);
 }
 
-//****************************************************************20051130(enlarge func for pc by not admin user) 
-function enlarge_pc_not_admin(image_f)
-{
-	var	retPara, new_win;
-	var	new_win
-	
-	retPara = GetWinPara_pc();
-	new_win = window.open("", "new_win", retPara);
-	new_win.document.open();
-	new_win.document.write("<HTML><BODY><P>");
-	new_win.document.write("<FORM>");
-	new_win.document.write("<INPUT TYPE='button' VALUE='CLOSE' NAME='btn_close' onclick='Javascript:top.close()'>")
-	new_win.document.write("</FORM>");
-	new_win.document.write("<HR><IMG SRC='" + image_f + "' width=800><P>");
-	new_win.document.write("</BODY></HTML>");
-	new_win.document.close();
-	var i;
-	for(i = 0; i < new_win.document.images.length; i++){
-		new_win.document.images[i].galleryImg = 'no';
-	}
+//****************************************************************20051130(enlarge func for pc by not admin user)
+function enlarge_pc_not_admin(image_f) {
+  var retPara, new_win;
+  var new_win;
+
+  retPara = GetWinPara_pc();
+  new_win = window.open("", "new_win", retPara);
+  new_win.document.open();
+  new_win.document.write("<HTML><BODY><P>");
+  new_win.document.write("<FORM>");
+  new_win.document.write(
+    "<INPUT TYPE='button' VALUE='CLOSE' NAME='btn_close' onclick='Javascript:top.close()'>"
+  );
+  new_win.document.write("</FORM>");
+  new_win.document.write("<HR><IMG SRC='" + image_f + "' width=800><P>");
+  new_win.document.write("</BODY></HTML>");
+  new_win.document.close();
+  var i;
+  for (i = 0; i < new_win.document.images.length; i++) {
+    new_win.document.images[i].galleryImg = "no";
+  }
 }
 
 //****************************************************************
-function GetWinPara()
-{
-     var w0;
-     var h0;
-     var  StrParam;
+function GetWinPara() {
+  var w0;
+  var h0;
+  var StrParam;
 
-     w0 = screen.availWidth - 10;
-     h0 = screen.availHeight - 28;
+  w0 = screen.availWidth - 10;
+  h0 = screen.availHeight - 28;
 
-     StrParam = "top = 0, left = 0, width = " + w0 + ", height = " + h0 + ", directories = no, ";
-     StrParam = StrParam + "location = no, menubar = no, scrollbars = no, status = no, ";
-     StrParam = StrParam + "toolbar = no, resizable = no";
+  StrParam =
+    "top = 0, left = 0, width = " +
+    w0 +
+    ", height = " +
+    h0 +
+    ", directories = no, ";
+  StrParam =
+    StrParam + "location = no, menubar = no, scrollbars = no, status = no, ";
+  StrParam = StrParam + "toolbar = no, resizable = no";
 
-     return(StrParam);
+  return StrParam;
 }
 
-//****************************************************************20050815(GetWinPara func for pc) 
-function GetWinPara_pc()
-{
-	var w0;
-	var h0;
-	var  StrParam;
+//****************************************************************20050815(GetWinPara func for pc)
+function GetWinPara_pc() {
+  var w0;
+  var h0;
+  var StrParam;
 
-	w0 = screen.availWidth - 10;
-	h0 = screen.availHeight - 120;
+  w0 = screen.availWidth - 10;
+  h0 = screen.availHeight - 120;
 
-	//Browser Check
-	if(navigator.appName.substr(0, 1) == "M"){
-		//Microsoft Internet Explorer
-		StrParam = "top = 0, left = 0, width = " + w0 + ", height = " + h0 + ", directories = no, ";
-		StrParam = StrParam + "location = no, menubar = yes, scrollbars = yes, status = no, ";
-		StrParam = StrParam + "toolbar = yes, resizable = yes";
-	} else {
-		//Netscape 
-		StrParam = "top=0,left=0,Width=" + w0 + ",Height=" + h0 + ",directories=no,";
-		StrParam = StrParam + "location=no,menubar=yes,scrollbars=yes,status=no,";
-		StrParam = StrParam + "toolbar=Yes,resizable=yes";
-	}
+  //Browser Check
+  if (navigator.appName.substr(0, 1) == "M") {
+    //Microsoft Internet Explorer
+    StrParam =
+      "top = 0, left = 0, width = " +
+      w0 +
+      ", height = " +
+      h0 +
+      ", directories = no, ";
+    StrParam =
+      StrParam +
+      "location = no, menubar = yes, scrollbars = yes, status = no, ";
+    StrParam = StrParam + "toolbar = yes, resizable = yes";
+  } else {
+    //Netscape
+    StrParam =
+      "top=0,left=0,Width=" + w0 + ",Height=" + h0 + ",directories=no,";
+    StrParam = StrParam + "location=no,menubar=yes,scrollbars=yes,status=no,";
+    StrParam = StrParam + "toolbar=Yes,resizable=yes";
+  }
 
-	return(StrParam);
+  return StrParam;
 }
 
 //****************************************************************20050815
-function SetCharset()
-{
-var cstr 
-	cstr = unescape(document.cookie);
-	if( cstr == "SMVCD=1" ) {
-		SetCharset_pc();
-	}
-	else{
-		SetCharset_mut3();
-	}
+function SetCharset() {
+  var cstr;
+  cstr = unescape(document.cookie);
+  if (cstr == "SMVCD=1") {
+    SetCharset_pc();
+  } else {
+    SetCharset_mut3();
+  }
 }
 
 //****************************************************************
-function SetCharset_mut3()
-{
-	var i;
-	for(i = 0; i < window.document.images.length; i++){
-		window.document.images[i].galleryImg = 'no';
-	}
-	// Display ID
-	var myname = self.name;
-//	alert(myname);
-//	if(myname = 'main'){
-//		DispID();//20020731 m.n ƒ^ƒCƒgƒ‹Frameíœ
-//	}
+function SetCharset_mut3() {
+  var i;
+  for (i = 0; i < window.document.images.length; i++) {
+    window.document.images[i].galleryImg = "no";
+  }
+  // Display ID
+  var myname = self.name;
+  //	alert(myname);
+  //	if(myname = 'main'){
+  //		DispID();//20020731 m.n ï¿½^ï¿½Cï¿½gï¿½ï¿½Frameï¿½íœ
+  //	}
 
-	var	pKey1 = "";
-	var	pKey2 = "";
-	var 	ret = "";
-	
-	MainFilePath = "";
-	LangID = "";
+  var pKey1 = "";
+  var pKey2 = "";
+  var ret = "";
 
-	// Get MUT3 Path(from Registry)
-//-->2002/09/13 MainFilePathÊß½–¼æ“¾ˆ—ŠÖ”‰»
-//	pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
-//	pKey2 = "path";
-//
-//	OBJ_RKKDLL = new ActiveXObject("m03.m03");
-//	ret = OBJ_RKKDLL.Get_Registry(pKey1,pKey2);
-//	if(ret == ""){
-//		return;
-//	}
-//	MainFilePath = ret;
-//
-	SetMainFilePath();
-//<--2002/09/13
+  MainFilePath = "";
+  LangID = "";
 
+  // Get MUT3 Path(from Registry)
+  //-->2002/09/13 MainFilePathï¿½ß½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½ï¿½ï¿½
+  //	pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
+  //	pKey2 = "path";
+  //
+  //	OBJ_RKKDLL = new ActiveXObject("m03.m03");
+  //	ret = OBJ_RKKDLL.Get_Registry(pKey1,pKey2);
+  //	if(ret == ""){
+  //		return;
+  //	}
+  //	MainFilePath = ret;
+  //
+  SetMainFilePath();
+  //<--2002/09/13
 
-//-->2002/09/24 LangIDæ“¾ˆ—ŠÖ”‰»
-//	// Get LanguageID(from Vhicle.dat)
-//	ret = "";
-//	ret = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\Temp\\Vehicle.dat","ENV","LANGUAGEID","");
-//	if(ret == ""){
-//		return;
-//	}
-//	LangID = ret;
-	SetLangID();
-//==>2002/09/25
-	if(LangID == ""){
-		return;
-	}
-//<==2002/09/25
-//<--2002/09/24
-	// Get Character Code(from Registry)
-	ret = "";
-	pKey1 = "Software\\Mmc\\Mut3\\Mut\\App\\Language";
-	pKey2 = LangID;
-	ret = OBJ_RKKDLL.Get_Registry(pKey1,pKey2);
-	if(ret == ""){
-		return;
-	}
+  //-->2002/09/24 LangIDï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½ï¿½ï¿½
+  //	// Get LanguageID(from Vhicle.dat)
+  //	ret = "";
+  //	ret = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\Temp\\Vehicle.dat","ENV","LANGUAGEID","");
+  //	if(ret == ""){
+  //		return;
+  //	}
+  //	LangID = ret;
+  SetLangID();
+  //==>2002/09/25
+  if (LangID == "") {
+    return;
+  }
+  //<==2002/09/25
+  //<--2002/09/24
+  // Get Character Code(from Registry)
+  ret = "";
+  pKey1 = "Software\\Mmc\\Mut3\\Mut\\App\\Language";
+  pKey2 = LangID;
+  ret = OBJ_RKKDLL.Get_Registry(pKey1, pKey2);
+  if (ret == "") {
+    return;
+  }
 
-	//Set Charcter Code
-//	alert(ret);
-	window.document.charset = ret;
-	window.resizeBy(1,0);	// for 
-
-
+  //Set Charcter Code
+  //	alert(ret);
+  window.document.charset = ret;
+  window.resizeBy(1, 0); // for
 }
 
-//****************************************************************20050815(SetCharset func for pc) 
-function SetCharset_pc()
-{
-	var i;
-	for(i = 0; i < window.document.images.length; i++){
-		window.document.images[i].galleryImg = 'no';
-	}
+//****************************************************************20050815(SetCharset func for pc)
+function SetCharset_pc() {
+  var i;
+  for (i = 0; i < window.document.images.length; i++) {
+    window.document.images[i].galleryImg = "no";
+  }
 }
 
 //Right-clicking prohibition
-if(document.all){      // DHTML/IE?
-   document.onmousedown = myEventIE ;
+if (document.all) {
+  // DHTML/IE?
+  document.onmousedown = myEventIE;
 }
-if(document.layers){   // DHTML/NN?
-   document.captureEvents(Event.MOUSEDOWN);
-   document.onmousedown = myEventNN ;
+if (document.layers) {
+  // DHTML/NN?
+  document.captureEvents(Event.MOUSEDOWN);
+  document.onmousedown = myEventNN;
 }
 
-function myEventIE(){         // Right-click on IE
-   if(event.button == 2){     // Right-click?
-//      alert("Right-clicking prohibition"); //2001/11/26
-//---------------->20020924
-////-------------->20020820 
-////	alert("‰EƒNƒŠƒbƒN‚Í–³Œø‚Å‚·");
-//	var htmlpath = parent.main.location.href;
-//	var iPos = htmlpath.lastIndexOf(".");
-//	if( htmlpath.substr(iPos-3,3) == "JPN" ){
-//	      alert("‰EƒNƒŠƒbƒN‚Í–³Œø‚Å‚·");
-//	}
-//	else{
-//	      alert("Right-clicking prohibition");
-//	}
-//
-//   }
-//<--------------20020820 
-		if( LangID == "" ) {
-			SetLangID();
-		}
-		if( LangID == "J" ) {
-	    	alert("‰EƒNƒŠƒbƒN‚Í–³Œø‚Å‚·");
-		}
-		else{
-	    	alert("Right-clicking prohibition");
-		}
+function myEventIE() {
+  // Right-click on IE
+  if (event.button == 2) {
+    // Right-click?
+    //      alert("Right-clicking prohibition"); //2001/11/26
+    //---------------->20020924
+    ////-------------->20020820
+    ////	alert("ï¿½Eï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Í–ï¿½ï¿½ï¿½ï¿½Å‚ï¿½");
+    //	var htmlpath = parent.main.location.href;
+    //	var iPos = htmlpath.lastIndexOf(".");
+    //	if( htmlpath.substr(iPos-3,3) == "JPN" ){
+    //	      alert("ï¿½Eï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Í–ï¿½ï¿½ï¿½ï¿½Å‚ï¿½");
+    //	}
+    //	else{
+    //	      alert("Right-clicking prohibition");
+    //	}
+    //
+    //   }
+    //<--------------20020820
+    if (LangID == "") {
+      SetLangID();
     }
-//<----------------20020924
+    if (LangID == "J") {
+      alert("ï¿½Eï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Í–ï¿½ï¿½ï¿½ï¿½Å‚ï¿½");
+    } else {
+      alert("Right-clicking prohibition");
+    }
+  }
+  //<----------------20020924
 }
 
-function myEventNN(myEvent){  // Right-click on NN
-   if(myEvent.which == 3){    // Right-click?
-//      alert("Right-clicking prohibition"); //2001/11/26 M.N comment out
-//---------------->20020924
-////-------------->20020820 
-////	alert("‰EƒNƒŠƒbƒN‚Í–³Œø‚Å‚·");
-//		var htmlpath = parent.main.location.href;
-//		var iPos = htmlpath.lastIndexOf(".");
-//	 	if( htmlpath.substr(iPos-3,3) == "JPN" ){
-//			alert("‰EƒNƒŠƒbƒN‚Í–³Œø‚Å‚·");
-//		}
-//		else{
-//	      alert("Right-clicking prohibition");
-//		}
-////<--------------20020820       
-		if( LangID == "" ) {
-			SetLangID();
-		}
-		if( LangID == "J" ) {
-	    	alert("‰EƒNƒŠƒbƒN‚Í–³Œø‚Å‚·");
-		}
-		else{
-	    	alert("Right-clicking prohibition");
-		}
-//<----------------20020924
-		return false;
-   	}
+function myEventNN(myEvent) {
+  // Right-click on NN
+  if (myEvent.which == 3) {
+    // Right-click?
+    //      alert("Right-clicking prohibition"); //2001/11/26 M.N comment out
+    //---------------->20020924
+    ////-------------->20020820
+    ////	alert("ï¿½Eï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Í–ï¿½ï¿½ï¿½ï¿½Å‚ï¿½");
+    //		var htmlpath = parent.main.location.href;
+    //		var iPos = htmlpath.lastIndexOf(".");
+    //	 	if( htmlpath.substr(iPos-3,3) == "JPN" ){
+    //			alert("ï¿½Eï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Í–ï¿½ï¿½ï¿½ï¿½Å‚ï¿½");
+    //		}
+    //		else{
+    //	      alert("Right-clicking prohibition");
+    //		}
+    ////<--------------20020820
+    if (LangID == "") {
+      SetLangID();
+    }
+    if (LangID == "J") {
+      alert("ï¿½Eï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Í–ï¿½ï¿½ï¿½ï¿½Å‚ï¿½");
+    } else {
+      alert("Right-clicking prohibition");
+    }
+    //<----------------20020924
+    return false;
+  }
 }
 
 //Scroll
@@ -727,670 +707,725 @@ var cx = 0;
 var cy = 0;
 var mp = 250;
 
-function Scroll(mode){
+function Scroll(mode) {
+  cx = parent.main.document.body.scrollLeft;
+  cy = parent.main.document.body.scrollTop;
+  // ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½É‚ï¿½ï¿½Aï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ê‚ğ’²ï¿½ï¿½ï¿½ï¿½ï¿½
+  if ((mode == 1) | (mode == 2)) {
+    mp = parent.main.document.body.clientWidth / 2;
+  } else {
+    mp = parent.main.document.body.clientHeight / 2;
+  }
+  //	alert("Xï¿½Ê’u >> " + cx);
+  //	alert("Yï¿½Ê’u >> " + cy);
+  //	alert("ï¿½Ú“ï¿½ï¿½ï¿½ >> " + mp);
 
-	cx = parent.main.document.body.scrollLeft;
-	cy = parent.main.document.body.scrollTop;
-	// ƒtƒŒ[ƒ€ƒTƒCƒY‚É‚æ‚èAƒXƒNƒ[ƒ‹—Ê‚ğ’²®‚·‚é
-	if(mode == 1|mode == 2){
-		mp = parent.main.document.body.clientWidth / 2;
-	}
-	else{
-		mp = parent.main.document.body.clientHeight / 2;
-	}
-//	alert("XˆÊ’u >> " + cx);
-//	alert("YˆÊ’u >> " + cy);
-//	alert("ˆÚ“®—Ê >> " + mp);
+  //* Left
+  if (mode == 1) {
+    cx = cx - mp;
+    if (cx < 0) {
+      cx = 0;
+    }
+  }
+  //* Right
+  if (mode == 2) {
+    cx = cx + mp;
+    if (cx < 0) {
+      cx = 0;
+    }
+  }
+  //* Up
+  if (mode == 3) {
+    cy = cy - mp;
+    if (cy < 0) {
+      cy = 0;
+    }
+  }
+  //* Down
+  if (mode == 4) {
+    cy = cy + mp;
+    if (cy < 0) {
+      cy = 0;
+    }
+  }
 
-	//* Left
-	if(mode == 1){
-		cx = cx - mp;
-		if(cx < 0){
-			cx = 0;
-		}
-	}
-	//* Right
-	if(mode == 2){
-		cx = cx + mp;
-		if(cx < 0){
-			cx = 0;
-		}
-	}
-	//* Up
-	if(mode == 3){
-		cy = cy - mp;
-		if(cy < 0){
-			cy = 0;
-		}
-	}
-	//* Down
-	if(mode == 4){
-		cy = cy + mp;
-		if(cy < 0){
-			cy = 0;
-		}
-	}
-
-	parent.main.scroll(cx,cy);
+  parent.main.scroll(cx, cy);
 }
 
 //PrintImage(PNG)
-function PrintImage(){
+function PrintImage() {
+  // *** ï¿½ï¿½ IE4.0ï¿½Å‚Í“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIE5.5ï¿½Å‚Í“ï¿½ï¿½ì‚¹ï¿½ï¿½
+  //	var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+  //    	document.body.insertAdjacentHTML('beforeEnd', WebBrowser);
+  //    	WebBrowser1.ExecWB(6, 2);
+  // ***********************
 
-// *** « IE4.0‚Å‚Í“®‚­‚ªAIE5.5‚Å‚Í“®ì‚¹‚¸
-//	var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
-//    	document.body.insertAdjacentHTML('beforeEnd', WebBrowser);
-//    	WebBrowser1.ExecWB(6, 2);
-// ***********************
+  // *** ï¿½ï¿½ RKK ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ù‚ï¿½ï¿½ï¿½ï¿½p
+  //	OBJ_RKKDLL.Prn_Screen(1,1);
+  // ***********************
 
-// *** « RKK ’ñ‹Ÿ »İÌßÙ‚æ‚èˆø—p
-//	OBJ_RKKDLL.Prn_Screen(1,1);	
-// ***********************
+  // ***** START SAMPLE *****
+  //	parent.main.print();		// ï¿½ï¿½ï¿½ï¿½Ù‚Å‚ï¿½ 	'01/05/16 ï¿½ï¿½ PrintDialogï¿½ï¿½ï¿½oï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½...
+  //	parent <--- ï¿½eï¿½Ú°Ñµï¿½Ş¼Şªï¿½ï¿½
+  //	main   <--- ï¿½qï¿½Ú°Ñ–ï¿½
+  //	ï¿½Ú°Ñ‚É‘Î‚ï¿½ï¿½ï¿½print()Ò¿ï¿½ï¿½Ş‚ğ”­sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş²ï¿½Û¸Ş‚ï¿½ï¿½oï¿½Í‚ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½Ü‚ï¿½ï¿½B
+  // ************************
 
+  //==>20020820 m.n ï¿½ï¿½ï¿½ï¿½_ï¿½Cï¿½Aï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ßCï¿½ï¿½
+  //	var prnfl = parent.main.location.href;
+  //	alert(prnfl);
+  //	var fname = prnfl.substr(8,prnfl.length);
+  //	alert(fname);
+  //	OBJ_RKKDLL.Prn_Image(fname);	// '01/05/18 ï¿½ï¿½ï¿½sï¿½ï¿½
 
-// ***** START SAMPLE *****
-//	parent.main.print();		// »İÌßÙ‚Å‚· 	'01/05/16 ¦ PrintDialog‚ªo‚Ä‚µ‚Ü‚¢‚Ü‚·‚ª...
-//	parent <--- eÌÚ°ÑµÌŞ¼Şª¸Ä
-//	main   <--- qÌÚ°Ñ–¼
-//	ÌÚ°Ñ‚É‘Î‚µ‚Äprint()Ò¿¯ÄŞ‚ğ”­s‚·‚é‚â‚è•û‚Å‚·‚ªA‚±‚Ì‚â‚è•û‚¾‚ÆÌßØİÄÀŞ²±Û¸Ş‚ªo—Í‚³‚ê‚Ä‚µ‚Ü‚¢‚Ü‚·B	
-// ************************
+  //==>20020930 m.n ï¿½ï¿½ï¿½ï¿½_ï¿½Cï¿½Aï¿½ï¿½ï¿½Oï¿½Ìuï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½vï¿½ï¿½ï¿½æ‘œï¿½É‚È‚ï¿½æ‚¤ï¿½Cï¿½ï¿½
+  parent.main.focus();
+  //<==20020930 m.n
+  parent.main.print();
 
-//==>20020820 m.n ˆóüƒ_ƒCƒAƒƒO•œŠˆ‚Ì‚½‚ßC³
-//	var prnfl = parent.main.location.href;
-//	alert(prnfl);
-//	var fname = prnfl.substr(8,prnfl.length);
-//	alert(fname);
-//	OBJ_RKKDLL.Prn_Image(fname);	// '01/05/18 Œ»s”Å
-
-//==>20020930 m.n ˆóüƒ_ƒCƒAƒƒO‚Ìu‘I‘ğ‚µ‚½ƒtƒŒ[ƒ€‚ğcv‚ª‰æ‘œ‚É‚È‚é‚æ‚¤C³
-	parent.main.focus();
-//<==20020930 m.n
-	parent.main.print();
-
-//<==20020820 m.n ƒ_ƒCƒAƒƒO•œŠˆ
-
+  //<==20020820 m.n ï¿½_ï¿½Cï¿½Aï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½
 }
 
 // Close Button
-function CloseWin(){
-	
-//	alert(parent.location.href);
-	parent.close();
-
+function CloseWin() {
+  //	alert(parent.location.href);
+  parent.close();
 }
 
 //****************************************************************20050815
-function JumpPage(filename)
-{
-	// // @dvdsmpsn - didn't work - need to find the relavive path, which is somewhere else.
-	filename = filename.replace('.HTM','.htm');
-	console.log(' ++ ' + filename, window.location);
-	window.location.href = filename;
-	
-	
-	
-// var cstr
-// 	cstr = unescape(document.cookie);
-// 	if( cstr == "SMVCD=1" ) {
-// 		JumpPage_pc(file);
-// 	}
-// 	else{
-// 		JumpPage_mut3(file);
-// 	}
+function JumpPage(filename) {
+  // // @dvdsmpsn - didn't work - need to find the relavive path, which is somewhere else.
+  // filename = filename.replace('.HTM','.htm');
+  console.log(" ++ " + filename, window.location);
+  window.location.href = filename;
+
+  // var cstr
+  // 	cstr = unescape(document.cookie);
+  // 	if( cstr == "SMVCD=1" ) {
+  // 		JumpPage_pc(file);
+  // 	}
+  // 	else{
+  // 		JumpPage_mut3(file);
+  // 	}
 }
 
 //JumpPage
-function JumpPage_mut3(file){
-     var  HTML_DIR  = "Html\\";
-     var  MENU_DIR  = "Menu\\"
+function JumpPage_mut3(file) {
+  var HTML_DIR = "Html\\";
+  var MENU_DIR = "Menu\\";
 
-     // Input S02MUT.INI '01/05/16 update
+  // Input S02MUT.INI '01/05/16 update
 
-//-->2002/09/13 MainFilePath‚ªÌŞ×İ¸‚¾‚Á‚½‚çÊß½–¼æ“¾ˆ—
-	if( MainFilePath == "" ) {
-		SetMainFilePath();
-	}
-//<--2002/09/13
-	var mode = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI", "ENV", "MODE", "");
-//==>20020910 RKK & MCOR
-	var P_SW = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI", "ENV", "PRT_SW", "");
-//<==20020910 RKK & MCOR
+  //-->2002/09/13 MainFilePathï¿½ï¿½ï¿½ï¿½ï¿½İ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+  if (MainFilePath == "") {
+    SetMainFilePath();
+  }
+  //<--2002/09/13
+  var mode = OBJ_RKKDLL.Get_Information(
+    MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+    "ENV",
+    "MODE",
+    ""
+  );
+  //==>20020910 RKK & MCOR
+  var P_SW = OBJ_RKKDLL.Get_Information(
+    MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+    "ENV",
+    "PRT_SW",
+    ""
+  );
+  //<==20020910 RKK & MCOR
 
-     // 01/11/12 update
-	if(mode == "S"){
-//-----------------------------------------------------------alert("viewer mode");
-//==>20020910 RKK & MCOR
-		if(P_SW != "1"){
-//<==20020910 RKK & MCOR
+  // 01/11/12 update
+  if (mode == "S") {
+    //-----------------------------------------------------------alert("viewer mode");
+    //==>20020910 RKK & MCOR
+    if (P_SW != "1") {
+      //<==20020910 RKK & MCOR
 
-			var infoid = file.substring(0,file.length - 4)
-			ret = OBJ_RKKDLL.Set_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI","ENV","NEXT_INFO", infoid);
+      var infoid = file.substring(0, file.length - 4);
+      ret = OBJ_RKKDLL.Set_Information(
+        MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+        "ENV",
+        "NEXT_INFO",
+        infoid
+      );
 
-			var htmpath = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI", "ENV", "S_PATH2", "");
-//			self.location.href = htmpath + "\\" + file;
-//-->20021009 RKK
-//			self.location.href = htmpath + file;
-//<--20021009 RKK
+      var htmpath = OBJ_RKKDLL.Get_Information(
+        MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+        "ENV",
+        "S_PATH2",
+        ""
+      );
+      //			self.location.href = htmpath + "\\" + file;
+      //-->20021009 RKK
+      //			self.location.href = htmpath + file;
+      //<--20021009 RKK
 
-			var h_file ="S150000000_F00.HTM";
-			top.location.replace(MainFilePath + "\\mut3\\" + MENU_DIR + HTML_DIR + h_file );
+      var h_file = "S150000000_F00.HTM";
+      top.location.replace(
+        MainFilePath + "\\mut3\\" + MENU_DIR + HTML_DIR + h_file
+      );
 
-//==>20020910 RKK & MCOR
-		}
-//<==20020910 RKK & MCOR
-	}
-	else{
-//-----------------------------------------------------------alert("mut-3 mode");
-//	2003/01/29 listname.ini”p~B
-//			@ ‰ß‹‚ÌSource‚Í2002/10/11•t‚¯scriptQÆ
-//             •ªŠ„Ì§²Ù‚Ì—L–³‚ğÁª¯¸iCheckFileExistjB—L¨•ªŠ„—pA–³¨Viewer—p
-//	2003/02/06 listname.iniˆ—ŠÖ”‰»‚µ‚Ä•œŠˆBg—p‚Í–¢’è
-//             page‘JˆÚ¸ŞÙ°Ìß‚ª•Ï‚í‚Á‚½‚çÒ¯¾°¼Ş•\¦
-//
-		var spath = parent.main.location.href;				//DLL—pÊß½–¼
-		var grpdir = file.substr(2, 2);						//ŸÍß°¼ŞHTML¸ŞÙ°Ìß–¼i»ÌŞÃŞ¨Ú¸ÄØj
-		var ipos;											//ŒŸõˆÊ’u
-		var repflg = 1;										//’uŠ·Ù°ÌßI—¹Ì×¸Ş
-		var htmlpath = "../../" + grpdir + "/html/";		//HTMLÊß½–¼
-		var myfilename = "";								//©g‚ÌÌ§²Ù–¼
-		var orgfile = file;									//µØ¼ŞÅÙÌ§²Ù–¼
-		var sptfile = "";									//•ªŠ„Ì§²Ù–¼
-		var opnfile = "";									//Ÿ‚ÌÌ§²Ù–¼
+      //==>20020910 RKK & MCOR
+    }
+    //<==20020910 RKK & MCOR
+  } else {
+    //-----------------------------------------------------------alert("mut-3 mode");
+    //	2003/01/29 listname.iniï¿½pï¿½~ï¿½B
+    //			ï¿½@ ï¿½ß‹ï¿½ï¿½ï¿½Sourceï¿½ï¿½2002/10/11ï¿½tï¿½ï¿½scriptï¿½Qï¿½ï¿½
+    //             ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‚Ì—Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iCheckFileExistï¿½jï¿½Bï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Aï¿½ï¿½ï¿½ï¿½Viewerï¿½p
+    //	2003/02/06 listname.iniï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä•ï¿½ï¿½ï¿½ï¿½Bï¿½gï¿½pï¿½Í–ï¿½ï¿½ï¿½
+    //             pageï¿½Jï¿½Úï¿½ï¿½ï¿½Ù°ï¿½ß‚ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¯ï¿½ï¿½ï¿½Ş•\ï¿½ï¿½
+    //
+    var spath = parent.main.location.href; //DLLï¿½pï¿½ß½ï¿½ï¿½
+    var grpdir = file.substr(2, 2); //ï¿½ï¿½ï¿½ß°ï¿½ï¿½HTMLï¿½ï¿½Ù°ï¿½ß–ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½Ş¨Ú¸ï¿½Øj
+    var ipos; //ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
+    var repflg = 1; //ï¿½uï¿½ï¿½Ù°ï¿½ßIï¿½ï¿½ï¿½×¸ï¿½
+    var htmlpath = "../../" + grpdir + "/html/"; //HTMLï¿½ß½ï¿½ï¿½
+    var myfilename = ""; //ï¿½ï¿½ï¿½gï¿½ï¿½Ì§ï¿½Ù–ï¿½
+    var orgfile = file; //ï¿½Ø¼ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½
+    var sptfile = ""; //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½
+    var opnfile = ""; //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½
 
-//@¶ÚİÄHTMLÌ§²Ù–¼æ“¾
-		var mainfl = parent.main.location.href;
-//		var list = CheckListName(mainfl);					//ˆê——•\Áª¯¸‚ª•K—v‚È‚Æ‚«‚ÍºÒİÄ‚Í‚¸‚·
-		ipos = mainfl.lastIndexOf("/");
-		myfilename = mainfl.substr(ipos+1,mainfl.length-ipos);
-//  Ò²İ¸ŞÙ°ÌßIDÁª¯¸
-		if( grpdir != myfilename.substr(2,2)) {
-		//group‚ªˆá‚¤
-			switch( grpdir ) {
-			case "13"	:
-			case "23"	:
-			case "27"	: //20030422 ’Ç‰Á m.n ƒ}ƒ‹ƒ`ƒZƒŒƒNƒg<4WD>
-			case "35"	:
-			case "37"	:
-			case "42"	: //20040726 ’Ç‰Á H.K ƒpƒ[ƒQ[ƒg
-			case "52"	:
-			case "54"	:
-			case "55"	:
-				if( LangID == "J" ) {
-					alert("‘¼ƒOƒ‹[ƒv‚Ì®”õ‰ğà‘‚ğ•\¦‚µ‚Ü‚·B\nƒf[ƒ^æ“¾‚ğ‚·‚éê‡‚ÍMUT-III‚Ì\n‘I‘ğƒVƒXƒeƒ€‚ğ•ÏX‚µ‚Ä‚­‚¾‚³‚¢B");
-				}
-				//==>20030526 m.n ‰pŒêƒƒbƒZ[ƒW’Ç‰Áib’è‘Îô‚Ì‚Í‚¸‚È‚Ì‚É‰pŒê‚àHj
-				else{
-					alert("Other system's troubleshooting will be displayed.\nIf getting data, change selected system.");
-				}
-				//<==20030526 m.n
-				break;
-			default :
-				break;
-			}
-		}
-//	HTMLÌ§²ÙÊß½–¼æ“¾
-		ipos = spath.lastIndexOf("/");
-		spath = spath.substr(8,ipos -8);
-		ipos = spath.length;
-//	”N®‚Ü‚Å‚ÌÊß½–¼‚É•ÒW
-		for( var i=1; i<3; i++)
-		{
-			ipos = spath.lastIndexOf("/",ipos);
-			ipos--;
-		} 
-		spath = spath.substr(0,ipos+1);
-//	"/"¨"\\"‚É’uŠ·iDLL—pj
-		while(repflg > 0){
-			if(spath.indexOf("/") == -1){
-				repflg = 0;
-			}
-			spath = spath.replace("/","\\");
-		}
-		spath = spath + "\\" + grpdir + "\\html";
-//  •ªŠ„Ì§²Ù–¼•ÒW
-		ipos = file.lastIndexOf(".");
-		sptfile = file.substr(0,ipos) + "_01_00.HTM";
-//  •ªŠ„Ì§²Ù‘¶İÁª¯¸
-		var ret;
-		var openmode;
-	    openmode =  OBJ_RKKDLL.Check_FileExist(spath, sptfile);
-		if( openmode == 0 ) {
-		//•ªŠ„Ì§²Ù‚ ‚è
-			opnfile = htmlpath + sptfile;
-		}
-		else {
-		//•ªŠ„Ì§²Ù‚È‚µ
-			opnfile = htmlpath + orgfile;
-		}
-//	‰æ–Ê‘JˆÚ
-		location.href= opnfile; 
-	}
+    //ï¿½@ï¿½ï¿½ï¿½ï¿½HTMLÌ§ï¿½Ù–ï¿½ï¿½æ“¾
+    var mainfl = parent.main.location.href;
+    //		var list = CheckListName(mainfl);					//ï¿½ê——ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½È‚Æ‚ï¿½ï¿½Íºï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½
+    ipos = mainfl.lastIndexOf("/");
+    myfilename = mainfl.substr(ipos + 1, mainfl.length - ipos);
+    //  Ò²İ¸ï¿½Ù°ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½
+    if (grpdir != myfilename.substr(2, 2)) {
+      //groupï¿½ï¿½ï¿½á‚¤
+      switch (grpdir) {
+        case "13":
+        case "23":
+        case "27": //20030422 ï¿½Ç‰ï¿½ m.n ï¿½}ï¿½ï¿½ï¿½`ï¿½Zï¿½ï¿½ï¿½Nï¿½g<4WD>
+        case "35":
+        case "37":
+        case "42": //20040726 ï¿½Ç‰ï¿½ H.K ï¿½pï¿½ï¿½ï¿½[ï¿½Qï¿½[ï¿½g
+        case "52":
+        case "54":
+        case "55":
+          if (LangID == "J") {
+            alert(
+              "ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½vï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B\nï¿½fï¿½[ï¿½^ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½MUT-IIIï¿½ï¿½\nï¿½Iï¿½ï¿½ï¿½Vï¿½Xï¿½eï¿½ï¿½ï¿½ï¿½ÏXï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B"
+            );
+          }
+          //==>20030526 m.n ï¿½pï¿½êƒï¿½bï¿½Zï¿½[ï¿½Wï¿½Ç‰ï¿½ï¿½iï¿½bï¿½ï¿½Îï¿½Ì‚Í‚ï¿½ï¿½È‚Ì‚É‰pï¿½ï¿½ï¿½ï¿½Hï¿½j
+          else {
+            alert(
+              "Other system's troubleshooting will be displayed.\nIf getting data, change selected system."
+            );
+          }
+          //<==20030526 m.n
+          break;
+        default:
+          break;
+      }
+    }
+    //	HTMLÌ§ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½æ“¾
+    ipos = spath.lastIndexOf("/");
+    spath = spath.substr(8, ipos - 8);
+    ipos = spath.length;
+    //	ï¿½Nï¿½ï¿½ï¿½Ü‚Å‚ï¿½ï¿½ß½ï¿½ï¿½ï¿½É•ÒW
+    for (var i = 1; i < 3; i++) {
+      ipos = spath.lastIndexOf("/", ipos);
+      ipos--;
+    }
+    spath = spath.substr(0, ipos + 1);
+    //	"/"ï¿½ï¿½"\\"ï¿½É’uï¿½ï¿½ï¿½iDLLï¿½pï¿½j
+    while (repflg > 0) {
+      if (spath.indexOf("/") == -1) {
+        repflg = 0;
+      }
+      spath = spath.replace("/", "\\");
+    }
+    spath = spath + "\\" + grpdir + "\\html";
+    //  ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½ï¿½ÒW
+    ipos = file.lastIndexOf(".");
+    sptfile = file.substr(0, ipos) + "_01_00.HTM";
+    //  ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    var ret;
+    var openmode;
+    openmode = OBJ_RKKDLL.Check_FileExist(spath, sptfile);
+    if (openmode == 0) {
+      //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‚ï¿½ï¿½ï¿½
+      opnfile = htmlpath + sptfile;
+    } else {
+      //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‚È‚ï¿½
+      opnfile = htmlpath + orgfile;
+    }
+    //	ï¿½ï¿½Ê‘Jï¿½ï¿½
+    location.href = opnfile;
+  }
 }
 
-//****************************************************************20050815(JumpPage func for pc) 
-function JumpPage_pc(file){
-	var	CodeDir;
-	
-	CodeDir = file.substr(2, 2);
-//==>2002/08/02 m.n ƒRƒ“ƒo[ƒ^“K—pŒãA‚±‚ÌƒR[ƒh‚ğ•œŠˆ‚³‚¹‚é
-//	parent.location.href= "../../" + CodeDir + "/html/" + file; 
-	location.href= "../../" + CodeDir + "/html/" + file; 
-//	location.href= file; 
+//****************************************************************20050815(JumpPage func for pc)
+function JumpPage_pc(file) {
+  var CodeDir;
 
+  CodeDir = file.substr(2, 2);
+  //==>2002/08/02 m.n ï¿½Rï¿½ï¿½ï¿½oï¿½[ï¿½^ï¿½Kï¿½pï¿½ï¿½Aï¿½ï¿½ï¿½ÌƒRï¿½[ï¿½hï¿½ğ•œŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  //	parent.location.href= "../../" + CodeDir + "/html/" + file;
+  location.href = "../../" + CodeDir + "/html/" + file;
+  //	location.href= file;
 }
 
-//==>20030421 m.n ŠÖ”’Ç‰Á‚±‚±‚©‚ç
-//            ŒÌáf’f(MUTƒ‚[ƒh‚Ì)
-//            page‘JˆÚƒTƒuƒOƒ‹[ƒv‚ª•Ï‚í‚Á‚Ä‚àŒxƒƒbƒZ[ƒW•\¦‚·‚é‚½‚ß‚Ìê—pŠÖ”‚Å‚·B
-//            g—p•û–@‚Í“––ÊHTML‘¤‚ğèC³‚µ‚Ä–{ŠÖ”–¼‚ğŒÄ‚Ô‚æ‚¤‚É‘Î‰‚µ‚Ü‚·(b’èd—l‚Æ‚Ì‚±‚Æ)
-//            JumpPage()‚ğƒRƒs[‚µì¬‚µ‚Ä‚¢‚Ü‚·‚ªƒƒ“ƒeƒiƒ“ƒX«‚ğl—¶‚µ§Œä\‘¢‚ğ•Ï‚¦‚Ä‚¢‚Ü‚¹‚ñB
-//            •ÏX‰ÓŠ‚ÍƒƒCƒ“ƒOƒ‹[ƒvƒ`ƒFƒbƒN‚ğ‚Í‚¸‚µ•K‚¸ŒxƒƒbƒZ[ƒW•\¦‚·‚é‚æ‚¤‚É‚µ‚½‚±‚Æ‚Å‚·B
+//==>20030421 m.n ï¿½Öï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//            ï¿½Ìï¿½fï¿½fï¿½ï¿½(MUTï¿½ï¿½ï¿½[ï¿½hï¿½Ìï¿½)
+//            pageï¿½Jï¿½Úï¿½ï¿½Tï¿½uï¿½Oï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½é‚½ï¿½ß‚Ìï¿½pï¿½Öï¿½ï¿½Å‚ï¿½ï¿½B
+//            ï¿½gï¿½pï¿½ï¿½ï¿½@ï¿½Í“ï¿½ï¿½ï¿½HTMLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ä–{ï¿½Öï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚Ô‚æ‚¤ï¿½É‘Î‰ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½(ï¿½bï¿½ï¿½dï¿½lï¿½Æ‚Ì‚ï¿½ï¿½ï¿½)
+//            JumpPage()ï¿½ï¿½ï¿½Rï¿½sï¿½[ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½iï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½Ï‚ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B
+//            ï¿½ÏXï¿½Óï¿½ï¿½Íƒï¿½ï¿½Cï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½vï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½Kï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚Å‚ï¿½ï¿½B
 //JumpPage2
-function JumpPage2(file){
-     var  HTML_DIR  = "Html\\";
-     var  MENU_DIR  = "Menu\\"
+function JumpPage2(file) {
+  var HTML_DIR = "Html\\";
+  var MENU_DIR = "Menu\\";
 
-     // Input S02MUT.INI '01/05/16 update
+  // Input S02MUT.INI '01/05/16 update
 
-//-->2002/09/13 MainFilePath‚ªÌŞ×İ¸‚¾‚Á‚½‚çÊß½–¼æ“¾ˆ—
-	if( MainFilePath == "" ) {
-		SetMainFilePath();
-	}
-//<--2002/09/13
-	var mode = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI", "ENV", "MODE", "");
-//==>20020910 RKK & MCOR
-	var P_SW = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI", "ENV", "PRT_SW", "");
-//<==20020910 RKK & MCOR
+  //-->2002/09/13 MainFilePathï¿½ï¿½ï¿½ï¿½ï¿½İ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+  if (MainFilePath == "") {
+    SetMainFilePath();
+  }
+  //<--2002/09/13
+  var mode = OBJ_RKKDLL.Get_Information(
+    MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+    "ENV",
+    "MODE",
+    ""
+  );
+  //==>20020910 RKK & MCOR
+  var P_SW = OBJ_RKKDLL.Get_Information(
+    MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+    "ENV",
+    "PRT_SW",
+    ""
+  );
+  //<==20020910 RKK & MCOR
 
-     // 01/11/12 update
-	if(mode == "S"){
-//-----------------------------------------------------------alert("viewer mode");
-//==>20020910 RKK & MCOR
-		if(P_SW != "1"){
-//<==20020910 RKK & MCOR
+  // 01/11/12 update
+  if (mode == "S") {
+    //-----------------------------------------------------------alert("viewer mode");
+    //==>20020910 RKK & MCOR
+    if (P_SW != "1") {
+      //<==20020910 RKK & MCOR
 
-			var infoid = file.substring(0,file.length - 4)
-			ret = OBJ_RKKDLL.Set_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI","ENV","NEXT_INFO", infoid);
+      var infoid = file.substring(0, file.length - 4);
+      ret = OBJ_RKKDLL.Set_Information(
+        MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+        "ENV",
+        "NEXT_INFO",
+        infoid
+      );
 
-			var htmpath = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\ini\\S02MUT.INI", "ENV", "S_PATH2", "");
-//			self.location.href = htmpath + "\\" + file;
-//-->20021009 RKK
-//			self.location.href = htmpath + file;
-//<--20021009 RKK
+      var htmpath = OBJ_RKKDLL.Get_Information(
+        MainFilePath + "\\mut3\\ini\\S02MUT.INI",
+        "ENV",
+        "S_PATH2",
+        ""
+      );
+      //			self.location.href = htmpath + "\\" + file;
+      //-->20021009 RKK
+      //			self.location.href = htmpath + file;
+      //<--20021009 RKK
 
-			var h_file ="S150000000_F00.HTM";
-			top.location.replace(MainFilePath + "\\mut3\\" + MENU_DIR + HTML_DIR + h_file );
+      var h_file = "S150000000_F00.HTM";
+      top.location.replace(
+        MainFilePath + "\\mut3\\" + MENU_DIR + HTML_DIR + h_file
+      );
 
-//==>20020910 RKK & MCOR
-		}
-//<==20020910 RKK & MCOR
-	}
-	else{
-//-----------------------------------------------------------alert("mut-3 mode");
-//	2003/01/29 listname.ini”p~B
-//			@ ‰ß‹‚ÌSource‚Í2002/10/11•t‚¯scriptQÆ
-//             •ªŠ„Ì§²Ù‚Ì—L–³‚ğÁª¯¸iCheckFileExistjB—L¨•ªŠ„—pA–³¨Viewer—p
-//	2003/02/06 listname.iniˆ—ŠÖ”‰»‚µ‚Ä•œŠˆBg—p‚Í–¢’è
-//             page‘JˆÚ¸ŞÙ°Ìß‚ª•Ï‚í‚Á‚½‚çÒ¯¾°¼Ş•\¦
-//
-		var spath = parent.main.location.href;				//DLL—pÊß½–¼
-		var grpdir = file.substr(2, 2);						//ŸÍß°¼ŞHTML¸ŞÙ°Ìß–¼i»ÌŞÃŞ¨Ú¸ÄØj
-		var ipos;											//ŒŸõˆÊ’u
-		var repflg = 1;										//’uŠ·Ù°ÌßI—¹Ì×¸Ş
-		var htmlpath = "../../" + grpdir + "/html/";		//HTMLÊß½–¼
-		var myfilename = "";								//©g‚ÌÌ§²Ù–¼
-		var orgfile = file;									//µØ¼ŞÅÙÌ§²Ù–¼
-		var sptfile = "";									//•ªŠ„Ì§²Ù–¼
-		var opnfile = "";									//Ÿ‚ÌÌ§²Ù–¼
+      //==>20020910 RKK & MCOR
+    }
+    //<==20020910 RKK & MCOR
+  } else {
+    //-----------------------------------------------------------alert("mut-3 mode");
+    //	2003/01/29 listname.iniï¿½pï¿½~ï¿½B
+    //			ï¿½@ ï¿½ß‹ï¿½ï¿½ï¿½Sourceï¿½ï¿½2002/10/11ï¿½tï¿½ï¿½scriptï¿½Qï¿½ï¿½
+    //             ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‚Ì—Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iCheckFileExistï¿½jï¿½Bï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Aï¿½ï¿½ï¿½ï¿½Viewerï¿½p
+    //	2003/02/06 listname.iniï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä•ï¿½ï¿½ï¿½ï¿½Bï¿½gï¿½pï¿½Í–ï¿½ï¿½ï¿½
+    //             pageï¿½Jï¿½Úï¿½ï¿½ï¿½Ù°ï¿½ß‚ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¯ï¿½ï¿½ï¿½Ş•\ï¿½ï¿½
+    //
+    var spath = parent.main.location.href; //DLLï¿½pï¿½ß½ï¿½ï¿½
+    var grpdir = file.substr(2, 2); //ï¿½ï¿½ï¿½ß°ï¿½ï¿½HTMLï¿½ï¿½Ù°ï¿½ß–ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½Ş¨Ú¸ï¿½Øj
+    var ipos; //ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
+    var repflg = 1; //ï¿½uï¿½ï¿½Ù°ï¿½ßIï¿½ï¿½ï¿½×¸ï¿½
+    var htmlpath = "../../" + grpdir + "/html/"; //HTMLï¿½ß½ï¿½ï¿½
+    var myfilename = ""; //ï¿½ï¿½ï¿½gï¿½ï¿½Ì§ï¿½Ù–ï¿½
+    var orgfile = file; //ï¿½Ø¼ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½
+    var sptfile = ""; //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½
+    var opnfile = ""; //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½
 
-//@¶ÚİÄHTMLÌ§²Ù–¼æ“¾
-		var mainfl = parent.main.location.href;
-//		var list = CheckListName(mainfl);					//ˆê——•\Áª¯¸‚ª•K—v‚È‚Æ‚«‚ÍºÒİÄ‚Í‚¸‚·
-		ipos = mainfl.lastIndexOf("/");
-		myfilename = mainfl.substr(ipos+1,mainfl.length-ipos);
-//  Ò²İ¸ŞÙ°ÌßIDÁª¯¸
-//		if( grpdir != myfilename.substr(2,2)) {
-		//group‚ªˆá‚¤
-			switch( grpdir ) {
-			case "13"	:
-			case "23"	:
-			case "27"	: //20030422 ’Ç‰Á m.n ƒ}ƒ‹ƒ`ƒZƒŒƒNƒg<4WD>
-			case "35"	:
-			case "37"	:
-			case "42"	: //20040726 ’Ç‰Á H.K ƒpƒ[ƒQ[ƒg
-			case "52"	:
-			case "54"	:
-			case "55" 	:
-				if( LangID == "J" ) {
-					alert("‘¼ƒOƒ‹[ƒv‚Ì®”õ‰ğà‘‚ğ•\¦‚µ‚Ü‚·B\nƒf[ƒ^æ“¾‚ğ‚·‚éê‡‚ÍMUT-III‚Ì\n‘I‘ğƒVƒXƒeƒ€‚ğ•ÏX‚µ‚Ä‚­‚¾‚³‚¢B");
-				}
-				//==>20030526 m.n ‰pŒêƒƒbƒZ[ƒW’Ç‰Áib’è‘Îô‚Ì‚Í‚¸‚È‚Ì‚É‰pŒê‚àHj
-				else{
-					alert("Other system's troubleshooting will be displayed.\nIf getting data, change selected system.");
-				}
-				//<==20030526 m.n
-				break;
-			default :
-				break;
-			}
-//		}
-//	HTMLÌ§²ÙÊß½–¼æ“¾
-		ipos = spath.lastIndexOf("/");
-		spath = spath.substr(8,ipos -8);
-		ipos = spath.length;
-//	”N®‚Ü‚Å‚ÌÊß½–¼‚É•ÒW
-		for( var i=1; i<3; i++)
-		{
-			ipos = spath.lastIndexOf("/",ipos);
-			ipos--;
-		} 
-		spath = spath.substr(0,ipos+1);
-//	"/"¨"\\"‚É’uŠ·iDLL—pj
-		while(repflg > 0){
-			if(spath.indexOf("/") == -1){
-				repflg = 0;
-			}
-			spath = spath.replace("/","\\");
-		}
-		spath = spath + "\\" + grpdir + "\\html";
-//  •ªŠ„Ì§²Ù–¼•ÒW
-		ipos = file.lastIndexOf(".");
-		sptfile = file.substr(0,ipos) + "_01_00.HTM";
-//  •ªŠ„Ì§²Ù‘¶İÁª¯¸
-		var ret;
-		var openmode;
-	    openmode =  OBJ_RKKDLL.Check_FileExist(spath, sptfile);
-		if( openmode == 0 ) {
-		//•ªŠ„Ì§²Ù‚ ‚è
-			opnfile = htmlpath + sptfile;
-		}
-		else {
-		//•ªŠ„Ì§²Ù‚È‚µ
-			opnfile = htmlpath + orgfile;
-		}
-//	‰æ–Ê‘JˆÚ
-		location.href= opnfile; 
-	}
+    //ï¿½@ï¿½ï¿½ï¿½ï¿½HTMLÌ§ï¿½Ù–ï¿½ï¿½æ“¾
+    var mainfl = parent.main.location.href;
+    //		var list = CheckListName(mainfl);					//ï¿½ê——ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½È‚Æ‚ï¿½ï¿½Íºï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½
+    ipos = mainfl.lastIndexOf("/");
+    myfilename = mainfl.substr(ipos + 1, mainfl.length - ipos);
+    //  Ò²İ¸ï¿½Ù°ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½
+    //		if( grpdir != myfilename.substr(2,2)) {
+    //groupï¿½ï¿½ï¿½á‚¤
+    switch (grpdir) {
+      case "13":
+      case "23":
+      case "27": //20030422 ï¿½Ç‰ï¿½ m.n ï¿½}ï¿½ï¿½ï¿½`ï¿½Zï¿½ï¿½ï¿½Nï¿½g<4WD>
+      case "35":
+      case "37":
+      case "42": //20040726 ï¿½Ç‰ï¿½ H.K ï¿½pï¿½ï¿½ï¿½[ï¿½Qï¿½[ï¿½g
+      case "52":
+      case "54":
+      case "55":
+        if (LangID == "J") {
+          alert(
+            "ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½vï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B\nï¿½fï¿½[ï¿½^ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½MUT-IIIï¿½ï¿½\nï¿½Iï¿½ï¿½ï¿½Vï¿½Xï¿½eï¿½ï¿½ï¿½ï¿½ÏXï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B"
+          );
+        }
+        //==>20030526 m.n ï¿½pï¿½êƒï¿½bï¿½Zï¿½[ï¿½Wï¿½Ç‰ï¿½ï¿½iï¿½bï¿½ï¿½Îï¿½Ì‚Í‚ï¿½ï¿½È‚Ì‚É‰pï¿½ï¿½ï¿½ï¿½Hï¿½j
+        else {
+          alert(
+            "Other system's troubleshooting will be displayed.\nIf getting data, change selected system."
+          );
+        }
+        //<==20030526 m.n
+        break;
+      default:
+        break;
+    }
+    //		}
+    //	HTMLÌ§ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½æ“¾
+    ipos = spath.lastIndexOf("/");
+    spath = spath.substr(8, ipos - 8);
+    ipos = spath.length;
+    //	ï¿½Nï¿½ï¿½ï¿½Ü‚Å‚ï¿½ï¿½ß½ï¿½ï¿½ï¿½É•ÒW
+    for (var i = 1; i < 3; i++) {
+      ipos = spath.lastIndexOf("/", ipos);
+      ipos--;
+    }
+    spath = spath.substr(0, ipos + 1);
+    //	"/"ï¿½ï¿½"\\"ï¿½É’uï¿½ï¿½ï¿½iDLLï¿½pï¿½j
+    while (repflg > 0) {
+      if (spath.indexOf("/") == -1) {
+        repflg = 0;
+      }
+      spath = spath.replace("/", "\\");
+    }
+    spath = spath + "\\" + grpdir + "\\html";
+    //  ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù–ï¿½ï¿½ÒW
+    ipos = file.lastIndexOf(".");
+    sptfile = file.substr(0, ipos) + "_01_00.HTM";
+    //  ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    var ret;
+    var openmode;
+    openmode = OBJ_RKKDLL.Check_FileExist(spath, sptfile);
+    if (openmode == 0) {
+      //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‚ï¿½ï¿½ï¿½
+      opnfile = htmlpath + sptfile;
+    } else {
+      //ï¿½ï¿½ï¿½ï¿½Ì§ï¿½Ù‚È‚ï¿½
+      opnfile = htmlpath + orgfile;
+    }
+    //	ï¿½ï¿½Ê‘Jï¿½ï¿½
+    location.href = opnfile;
+  }
 }
-//<==20030421 m.n ŠÖ”’Ç‰Á‚±‚±‚Ü‚Å
+//<==20030421 m.n ï¿½Öï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
 
 //---------------->	2003/02/06 add
 //****************************************************************
-//	iniÌ§²ÙÊß½–¼æ“¾
+//	iniÌ§ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½æ“¾
 function GetInifilePath(fname, inifilename) {
-	var repflg = 1;							//I—¹Ì×¸Ş
-	var inifl = fname;
-	var ipos = inifl.lastIndexOf("/");
-	if( ipos == -1 ) {						
-	//Ì§²Ù–¼‚Ì‚İ‚Ìê‡path–¼æ“¾
-		inifl = parent.main.location.href;
-		ipos = inifl.lastIndexOf("/");
-	}
-	inifl = inifl.substr(8,ipos -8);
-	ipos = inifl.length;
-	for( var i=1; i<4; i++)
-	{
-		ipos = inifl.lastIndexOf("/",ipos);
-		ipos--;
-	} 
-	inifl = inifl.substr(0,ipos+1) + "/script/" + inifilename;
-	while(repflg > 0){
-		if(inifl.indexOf("/") == -1){
-			repflg = 0;
-		}
-		inifl = inifl.replace("/","\\");
-	}
-	return inifl;
+  var repflg = 1; //ï¿½Iï¿½ï¿½ï¿½×¸ï¿½
+  var inifl = fname;
+  var ipos = inifl.lastIndexOf("/");
+  if (ipos == -1) {
+    //Ì§ï¿½Ù–ï¿½ï¿½Ì‚İ‚Ìê‡pathï¿½ï¿½ï¿½æ“¾
+    inifl = parent.main.location.href;
+    ipos = inifl.lastIndexOf("/");
+  }
+  inifl = inifl.substr(8, ipos - 8);
+  ipos = inifl.length;
+  for (var i = 1; i < 4; i++) {
+    ipos = inifl.lastIndexOf("/", ipos);
+    ipos--;
+  }
+  inifl = inifl.substr(0, ipos + 1) + "/script/" + inifilename;
+  while (repflg > 0) {
+    if (inifl.indexOf("/") == -1) {
+      repflg = 0;
+    }
+    inifl = inifl.replace("/", "\\");
+  }
+  return inifl;
 }
 //****************************************************************
-//	listname.iniÁª¯¸iˆê——•\HTMLÁª¯¸j
+//	listname.iniï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ê——ï¿½\HTMLï¿½ï¿½ï¿½ï¿½ï¿½j
 function CheckListName(fname) {
-		var ret = false;
-//listname.iniÊß½–¼•ÒW
-		var inifl = GetInifilePath(fname, INI_ListName);
-//listname.iniÃŞ°Àæ“¾
-	//ˆê——•\Œ”æ“¾
-		var filecnt = OBJ_RKKDLL.Get_Information(inifl, "LIST", "CNT", "");
-		var key;
-		if( filecnt == "" || filecnt == "0") {	//ˆê——•\–³‚µ
-			filecnt = 0;
-			filename = new Array(filecnt);
-		} else	{								//ˆê——•\‚ ‚è
-			filename = new Array(filecnt - 1);
-		}
-	//ˆê——•\Ì§²Ù–¼æ“¾
-		for(var i=0;i<=filecnt - 1;i++){
-			key = "NO" + (i + 1);
-			filename[i] = OBJ_RKKDLL.Get_Information(inifl, "LIST", key, "");
-		}
-		
-//¶ÚİÄHTMLÌ§²Ù–¼æ“¾
-		var	grpdir;							//¸ŞÙ°ÌßID
-		var mainfl = fname;
-		var myfilename = "";
-		var ipos = mainfl.lastIndexOf("/");
-		if( ipos > -1 ) {
-			myfilename = mainfl.substr(ipos+1,mainfl.length-ipos);
-		} else {
-			myfilename = mainfl;
-		}
-		ipos = myfilename.indexOf(".");
-		myfilename = myfilename.substr(0,ipos);
-		//ˆê——•\¦‚©‚Ç‚¤‚©
-		for(i=0;i<=filecnt - 1;i++){
-			if(myfilename==filename[i]){
-				ret = true;
-				break;
-			}
-		}
-		return ret;
+  var ret = false;
+  //listname.iniï¿½ß½ï¿½ï¿½ï¿½ÒW
+  var inifl = GetInifilePath(fname, INI_ListName);
+  //listname.iniï¿½Ş°ï¿½ï¿½æ“¾
+  //ï¿½ê——ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
+  var filecnt = OBJ_RKKDLL.Get_Information(inifl, "LIST", "CNT", "");
+  var key;
+  if (filecnt == "" || filecnt == "0") {
+    //ï¿½ê——ï¿½\ï¿½ï¿½ï¿½ï¿½
+    filecnt = 0;
+    filename = new Array(filecnt);
+  } else {
+    //ï¿½ê——ï¿½\ï¿½ï¿½ï¿½ï¿½
+    filename = new Array(filecnt - 1);
+  }
+  //ï¿½ê——ï¿½\Ì§ï¿½Ù–ï¿½ï¿½æ“¾
+  for (var i = 0; i <= filecnt - 1; i++) {
+    key = "NO" + (i + 1);
+    filename[i] = OBJ_RKKDLL.Get_Information(inifl, "LIST", key, "");
+  }
 
+  //ï¿½ï¿½ï¿½ï¿½HTMLÌ§ï¿½Ù–ï¿½ï¿½æ“¾
+  var grpdir; //ï¿½ï¿½Ù°ï¿½ï¿½ID
+  var mainfl = fname;
+  var myfilename = "";
+  var ipos = mainfl.lastIndexOf("/");
+  if (ipos > -1) {
+    myfilename = mainfl.substr(ipos + 1, mainfl.length - ipos);
+  } else {
+    myfilename = mainfl;
+  }
+  ipos = myfilename.indexOf(".");
+  myfilename = myfilename.substr(0, ipos);
+  //ï¿½ê——ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
+  for (i = 0; i <= filecnt - 1; i++) {
+    if (myfilename == filename[i]) {
+      ret = true;
+      break;
+    }
+  }
+  return ret;
 }
 //<----------------	2003/02/06 add
 
-function ImgZoom(mode){
+function ImgZoom(mode) {
+  var img = "";
+  var imgw = 0;
+  var imgh = 0;
+  var preZoom = 0;
+  for (var i = 1; i <= parent.main.document.images.length; i++) {
+    if (parent.main.document.images[i - 1].src != "") {
+      img = parent.main.document.images[i - 1].src;
+      imgw = parent.main.document.images[i - 1].width;
+      imgh = parent.main.document.images[i - 1].height;
+      break;
+    }
+  }
 
-	var img = "";
-	var imgw = 0;
-	var imgh = 0;
-	var preZoom = 0;	
-	for(var i=1;i<= parent.main.document.images.length;i++){
-		if(parent.main.document.images[i-1].src != ""){
-			img=parent.main.document.images[i-1].src;
-			imgw = parent.main.document.images[i-1].width;
-			imgh = parent.main.document.images[i-1].height;
-			break;
-		}
-	}	
+  preZoom = Zoom;
+  if (mode == 0) {
+    Zoom = Zoom + 25;
+    if (Zoom > 100) {
+      Zoom = 100;
+    }
+  } else {
+    Zoom = Zoom - 25;
+    if (Zoom < 25) {
+      Zoom = 25;
+    }
+  }
 
-	preZoom = Zoom;
-	if(mode == 0){
-		Zoom = Zoom + 25;
-		if(Zoom > 100){
-			Zoom = 100;
-		}
-	}
-	else{
-		Zoom = Zoom - 25;
-		if(Zoom < 25){
-			Zoom = 25;
-		}
-	}
+  var curpath = parent.message.location.pathname;
+  var iPos = curpath.lastIndexOf("\\");
+  //	curpath = curpath.substr(1,iPos - 1);
+  //	iPos = curpath.lastIndexOf("\\");
+  var curfd = curpath.substr(1, iPos);
 
-	var curpath = parent.message.location.pathname;
-	var iPos = curpath.lastIndexOf("\\");
-//	curpath = curpath.substr(1,iPos - 1);
-//	iPos = curpath.lastIndexOf("\\");
-	var curfd = curpath.substr(1,iPos);	
+  var iw = (Zoom * imgw) / preZoom;
+  var ih = (Zoom * imgh) / preZoom;
 
-	var iw = Zoom * imgw / preZoom;
-	var ih = Zoom * imgh / preZoom;
+  //	alert("Zoom >> " + Zoom);
+  //	alert("imgw >> " + imgw);
+  //	alert("imgh >> " + imgh);
+  //	alert("iw >> " + iw);
+  //	alert("ih >> " + ih);
 
-//	alert("Zoom >> " + Zoom);
-//	alert("imgw >> " + imgw);
-//	alert("imgh >> " + imgh);
-//	alert("iw >> " + iw);
-//	alert("ih >> " + ih);
+  //	OBJ_RKKDLL.Make_ImgHtm(curfd,img,Zoom);
 
-//	OBJ_RKKDLL.Make_ImgHtm(curfd,img,Zoom);
+  var imgfp;
+  imgfp = OBJ_RKKDLL.Make_ImgHtm3(curfd, img, iw, ih);
 
-	var imgfp;
-	imgfp = OBJ_RKKDLL.Make_ImgHtm3(curfd,img,iw,ih);
-
-//	parent.location.reload();
-	parent.main.location.reload();
-//	parent.title.location.reload();
-
+  //	parent.location.reload();
+  parent.main.location.reload();
+  //	parent.title.location.reload();
 }
-function DispButton(mode){
-
-	switch(mode){
-		case 1:
-			parent.button.location.href = "W000000000_B01.HTM";
-			break;
-		case 2:
-			parent.button.location.href = "W000000000_B02.HTM";
-			break;
-	}
-
+function DispButton(mode) {
+  switch (mode) {
+    case 1:
+      parent.button.location.href = "W000000000_B01.HTM";
+      break;
+    case 2:
+      parent.button.location.href = "W000000000_B02.HTM";
+      break;
+  }
 }
 
 //--------------->2002/09/13 add
-function SetMainFilePath(){
+function SetMainFilePath() {
+  var pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
+  var pKey2 = "path";
 
-	var pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
-	var pKey2 = "path";
-
-	MainFilePath = "";
-	OBJ_RKKDLL = new ActiveXObject("m03.m03");
-	ret = OBJ_RKKDLL.Get_Registry(pKey1,pKey2);
-	if(ret == ""){
-		return;
-	}
-	MainFilePath = ret;
+  MainFilePath = "";
+  OBJ_RKKDLL = new ActiveXObject("m03.m03");
+  ret = OBJ_RKKDLL.Get_Registry(pKey1, pKey2);
+  if (ret == "") {
+    return;
+  }
+  MainFilePath = ret;
 }
 //<---------------2002/09/13 add
 
-
 //--------------->2002/09/24 add
-function SetLangID(){
-
-// Get LanguageID(from Vhicle.dat)
-	var ret = "";
-//	var htmlpath = parent.location.href;
-//	var iPos;
-//	iPos =  htmlpath.lastIndexOf("S150000000_F00");
-//	if( iPos > 0 ) 
-//	{
-		if( MainFilePath=="") 
-		{
-			SetMainFilePath();
-		}
-		ret = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\Temp\\Vehicle.dat","ENV","LANGUAGEID","");
-//	}
-//	else 
-//	{
-//		var iPos = htmlpath.lastIndexOf(".");
-//		var sLang=""
-//		if( htmlpath.substr(iPos-1,1) == "F" ) 
-//		{//MUT-III mode
-//			sLang = htmlpath.substr(iPos-4,3);
-//		}
-//		else
-//		{//non Frame or other html
-//			sLang = htmlpath.substr(iPos-3,3);
-//		}
-//		switch( sLang)
-//		{
-//			case "JPN":
-//				ret = "J";
-//				break;
-//			case "USA":
-//				ret = "N";
-//				break;
-//			default:
-//			ret = sLang.substr(1,1);
-//		}
-//	}
-	LangID = ret;
+function SetLangID() {
+  // Get LanguageID(from Vhicle.dat)
+  var ret = "";
+  //	var htmlpath = parent.location.href;
+  //	var iPos;
+  //	iPos =  htmlpath.lastIndexOf("S150000000_F00");
+  //	if( iPos > 0 )
+  //	{
+  if (MainFilePath == "") {
+    SetMainFilePath();
+  }
+  ret = OBJ_RKKDLL.Get_Information(
+    MainFilePath + "\\mut3\\Temp\\Vehicle.dat",
+    "ENV",
+    "LANGUAGEID",
+    ""
+  );
+  //	}
+  //	else
+  //	{
+  //		var iPos = htmlpath.lastIndexOf(".");
+  //		var sLang=""
+  //		if( htmlpath.substr(iPos-1,1) == "F" )
+  //		{//MUT-III mode
+  //			sLang = htmlpath.substr(iPos-4,3);
+  //		}
+  //		else
+  //		{//non Frame or other html
+  //			sLang = htmlpath.substr(iPos-3,3);
+  //		}
+  //		switch( sLang)
+  //		{
+  //			case "JPN":
+  //				ret = "J";
+  //				break;
+  //			case "USA":
+  //				ret = "N";
+  //				break;
+  //			default:
+  //			ret = sLang.substr(1,1);
+  //		}
+  //	}
+  LangID = ret;
 }
 //<---------------2002/09/24 add
 
-//--------------->2002/10/03 add  ƒCƒ‰ƒXƒgŠg‘åFrameì¬
-//				  2002/10/04 Šg’£q‚Í‚¸‚·BƒCƒ‰ƒXƒgID‚ÉŠÛŠ‡ŒÊ•t‰Á
-//				  2002/10/11 mut3.dll“à‚Ås‚¤‚Ì‚Åg—p‚µ‚È‚¢iƒlƒbƒgƒ[ƒN‚ÅƒGƒ‰[‚Æ‚È‚é‚½‚ß”p~j
-function  Make_ImageFrame( ImgWnd, htmlpath, imgfl ) {
-	//image file name get
-	var imagename;
-	var ipos = imgfl.lastIndexOf("/");
-	imagename = imgfl.substr(ipos+1);
-	ipos = imagename.lastIndexOf(".");
-	imagename = imagename.substr(0,ipos);
+//--------------->2002/10/03 add  ï¿½Cï¿½ï¿½ï¿½Xï¿½gï¿½gï¿½ï¿½Frameï¿½ì¬
+//				  2002/10/04 ï¿½gï¿½ï¿½ï¿½qï¿½Í‚ï¿½ï¿½ï¿½ï¿½Bï¿½Cï¿½ï¿½ï¿½Xï¿½gIDï¿½ÉŠÛŠï¿½ï¿½Ê•tï¿½ï¿½
+//				  2002/10/11 mut3.dllï¿½ï¿½ï¿½Åsï¿½ï¿½ï¿½Ì‚Ågï¿½pï¿½ï¿½ï¿½È‚ï¿½ï¿½iï¿½lï¿½bï¿½gï¿½ï¿½ï¿½[ï¿½Nï¿½ÅƒGï¿½ï¿½ï¿½[ï¿½Æ‚È‚é‚½ï¿½ß”pï¿½~ï¿½j
+function Make_ImageFrame(ImgWnd, htmlpath, imgfl) {
+  //image file name get
+  var imagename;
+  var ipos = imgfl.lastIndexOf("/");
+  imagename = imgfl.substr(ipos + 1);
+  ipos = imagename.lastIndexOf(".");
+  imagename = imagename.substr(0, ipos);
 
-	//write 03IMGPRN.htm
-	ImgWnd.document.open();				//©ƒlƒbƒgƒ[ƒNã‚¾‚Æ‚±‚±‚ÅƒGƒ‰[‚É
-	ImgWnd.document.writeln("<HTML>");
-        ImgWnd.document.writeln("<HEAD>");
-	ImgWnd.document.writeln("<TITLE>(" + imagename + ")</TITLE>");
-	ImgWnd.document.writeln("</HEAD>");
-	ImgWnd.document.writeln("<FRAMESET ROWS='*,4%,10%' FRANEBORDER='0' FRAMESPACING='1'>");
-	ImgWnd.document.writeln("<FRAME NAME='main' SRC='" + htmlpath + "ImgMain.htm' SCROLLING='auto' NORESIZE>");
-	ImgWnd.document.writeln("<FRAME NAME='message' SRC='" + htmlpath + "03IMGMSG.htm' SCROLLING='no' NORESIZE>");
-	ImgWnd.document.writeln("<FRAME NAME='button' SRC='" + htmlpath + "03IMG_B01.htm' SCROLLING='no' NORESIZE>");
-	ImgWnd.document.writeln("</FRAMESET>");
-	ImgWnd.document.writeln("</HTML>");
-	ImgWnd.document.close();
+  //write 03IMGPRN.htm
+  ImgWnd.document.open(); //ï¿½ï¿½ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½[ï¿½Nï¿½ã‚¾ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ÅƒGï¿½ï¿½ï¿½[ï¿½ï¿½
+  ImgWnd.document.writeln("<HTML>");
+  ImgWnd.document.writeln("<HEAD>");
+  ImgWnd.document.writeln("<TITLE>(" + imagename + ")</TITLE>");
+  ImgWnd.document.writeln("</HEAD>");
+  ImgWnd.document.writeln(
+    "<FRAMESET ROWS='*,4%,10%' FRANEBORDER='0' FRAMESPACING='1'>"
+  );
+  ImgWnd.document.writeln(
+    "<FRAME NAME='main' SRC='" +
+      htmlpath +
+      "ImgMain.htm' SCROLLING='auto' NORESIZE>"
+  );
+  ImgWnd.document.writeln(
+    "<FRAME NAME='message' SRC='" +
+      htmlpath +
+      "03IMGMSG.htm' SCROLLING='no' NORESIZE>"
+  );
+  ImgWnd.document.writeln(
+    "<FRAME NAME='button' SRC='" +
+      htmlpath +
+      "03IMG_B01.htm' SCROLLING='no' NORESIZE>"
+  );
+  ImgWnd.document.writeln("</FRAMESET>");
+  ImgWnd.document.writeln("</HTML>");
+  ImgWnd.document.close();
 }
 //<---------------2002/10/03 add
 
-//****************************************************************2005/8/23 
-function GetTempFile()
-{
-var pKey1 = "Software\\MMC\\CD";
-var pKey2 = "TEMP";
-var TempPath = "";
+//****************************************************************2005/8/23
+function GetTempFile() {
+  var pKey1 = "Software\\MMC\\CD";
+  var pKey2 = "TEMP";
+  var TempPath = "";
 
-	OBJ_RKKDLL = new ActiveXObject("m03.m03");
-	TempPath = OBJ_RKKDLL.Get_HURegistry(pKey1,pKey2);
-	if(TempPath == ""){
-		return("");
-	}
-	return(TempPath);
+  OBJ_RKKDLL = new ActiveXObject("m03.m03");
+  TempPath = OBJ_RKKDLL.Get_HURegistry(pKey1, pKey2);
+  if (TempPath == "") {
+    return "";
+  }
+  return TempPath;
 }
 
 //****************************************************************2005/11/30
-function CheckActiveX()
-{
-var pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
-var pKey2 = "DATE";
-var InstDate = "";
+function CheckActiveX() {
+  var pKey1 = "Software\\Mmc\\Mut3\\Common\\Build";
+  var pKey2 = "DATE";
+  var InstDate = "";
 
-	CheckActiveXFlg = "OK";
-	try{
-		OBJ_RKKDLL = new ActiveXObject("m03.m03");
-		InstDate = OBJ_RKKDLL.Get_Registry(pKey1,pKey2);
-	}catch(e){
-		CheckActiveXFlg = "NG";
-		return(CheckActiveXFlg);
-	}
-	return(CheckActiveXFlg);
+  CheckActiveXFlg = "OK";
+  try {
+    OBJ_RKKDLL = new ActiveXObject("m03.m03");
+    InstDate = OBJ_RKKDLL.Get_Registry(pKey1, pKey2);
+  } catch (e) {
+    CheckActiveXFlg = "NG";
+    return CheckActiveXFlg;
+  }
+  return CheckActiveXFlg;
 }
 
 //****************************************************************2005/11/30
-function CheckAccess()
-{
-
-	if( MainFilePath == "" ) {
-		SetMainFilePath();
-	}
-	OBJ_RKKDLL = new ActiveXObject("m03.m03");
-	OBJ_RKKDLL.Set_Information(MainFilePath + "\\mut3\\TEMP\\S02CHECK.DAT","ENV","STATUS", "OK");
-	CheckAccessFlg = OBJ_RKKDLL.Get_Information(MainFilePath + "\\mut3\\TEMP\\S02CHECK.DAT","ENV","STATUS", "NG");
-	if ( CheckAccessFlg == "OK"){
-		OBJ_RKKDLL.Set_Information(MainFilePath + "\\mut3\\TEMP\\S02CHECK.DAT","ENV","STATUS", "NG");
-		return(CheckAccessFlg);
-	}else{
-		return(CheckAccessFlg);
-	}
+function CheckAccess() {
+  if (MainFilePath == "") {
+    SetMainFilePath();
+  }
+  OBJ_RKKDLL = new ActiveXObject("m03.m03");
+  OBJ_RKKDLL.Set_Information(
+    MainFilePath + "\\mut3\\TEMP\\S02CHECK.DAT",
+    "ENV",
+    "STATUS",
+    "OK"
+  );
+  CheckAccessFlg = OBJ_RKKDLL.Get_Information(
+    MainFilePath + "\\mut3\\TEMP\\S02CHECK.DAT",
+    "ENV",
+    "STATUS",
+    "NG"
+  );
+  if (CheckAccessFlg == "OK") {
+    OBJ_RKKDLL.Set_Information(
+      MainFilePath + "\\mut3\\TEMP\\S02CHECK.DAT",
+      "ENV",
+      "STATUS",
+      "NG"
+    );
+    return CheckAccessFlg;
+  } else {
+    return CheckAccessFlg;
+  }
 }
-
